@@ -154,7 +154,8 @@ export default function OperatorDashboard() {
           <Card
             key={crane.id}
             className="cursor-pointer hover:shadow-md transition-shadow"
-            onClick={() => handleCraneSelect(crane.id)}
+            onClick={() => crane.status === "operational" && handleCraneSelect(crane.id)}
+            onMouseEnter={() => crane.status === "operational" && (crane.status = "hover")}
           >
             <CardHeader className="pb-2">
               <div className="flex justify-between items-start">
@@ -171,7 +172,7 @@ export default function OperatorDashboard() {
             <CardFooter>
               <Button
                 disabled={crane.status !== "operational"}
-                variant="outline"
+                variant="primary"
                 size="sm"
                 className="w-full"
                 onClick={() => handleCraneSelect(crane.id)}

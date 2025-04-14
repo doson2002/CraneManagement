@@ -1,8 +1,8 @@
-"use client"
+"use client";
 
-import Link from "next/link"
-import { Bell, User } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import Link from "next/link";
+import { Bell, User } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -10,22 +10,26 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import { SidebarTrigger } from "@/components/ui/sidebar"
+} from "@/components/ui/dropdown-menu";
+import { ConeIcon as Crane } from "lucide-react";
+import HeaderNav from "@/components/nav";
 
 interface HeaderProps {
-  userName: string
-  role: string
-  notificationCount?: number
+  userName: string;
+  role: string;
+  notificationCount?: number;
 }
 
 export function Header({ userName, role, notificationCount = 0 }: HeaderProps) {
   return (
     <header className="sticky top-0 z-10 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6">
-      <SidebarTrigger className="h-8 w-8 md:hidden" />
-      <div className="flex flex-1 items-center justify-between">
+      <div className="flex flex-1 items-center justify-between h-full">
         <div className="flex items-center gap-2">
-          <h1 className="text-lg font-semibold md:text-xl">Crane Management System</h1>
+          <Crane className="h-10 w-10 text-primary" />
+          <span className="text-xl font-bold">CraneMS</span>
+        </div>
+        <div className="flex items-center gap-4 h-full">
+          <HeaderNav role={role}/>
         </div>
         <div className="flex items-center gap-4">
           <DropdownMenu>
@@ -44,9 +48,15 @@ export function Header({ userName, role, notificationCount = 0 }: HeaderProps) {
               <DropdownMenuSeparator />
               {notificationCount > 0 ? (
                 <>
-                  <DropdownMenuItem>Maintenance due for Crane #1234</DropdownMenuItem>
-                  <DropdownMenuItem>New operator qualification test submitted</DropdownMenuItem>
-                  <DropdownMenuItem>Crane startup checklist completed</DropdownMenuItem>
+                  <DropdownMenuItem>
+                    Maintenance due for Crane #1234
+                  </DropdownMenuItem>
+                  <DropdownMenuItem>
+                    New operator qualification test submitted
+                  </DropdownMenuItem>
+                  <DropdownMenuItem>
+                    Crane startup checklist completed
+                  </DropdownMenuItem>
                 </>
               ) : (
                 <DropdownMenuItem>No new notifications</DropdownMenuItem>
@@ -79,12 +89,14 @@ export function Header({ userName, role, notificationCount = 0 }: HeaderProps) {
               </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem asChild>
-                <Link href="/login">Logout</Link>
+                <Link href="/login" className="text-red-600">
+                  Logout
+                </Link>
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
       </div>
     </header>
-  )
+  );
 }

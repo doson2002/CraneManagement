@@ -57,3 +57,35 @@
     @apply bg-background text-foreground;
   }
 }
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-item {
+  &::after {
+    content: "";
+    display: block;
+    width: 0;
+    height: 2px;
+    background-color: #326EFB;
+    position: absolute;
+    left: auto;
+    right: 0;
+    bottom: 0;
+    z-index: 100;
+    transition: all 0.3s ease-in-out;
+
+    
+  }
+
+  &:hover{
+    &::after {
+      width: 100%;
+      right: auto;
+      left: 0;
+    }
+  }
+}
