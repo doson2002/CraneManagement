@@ -12,7 +12,7 @@ import { Checkbox } from "@/components/ui/checkbox"
 import Link from "next/link"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 
-export default function CraneStartup({ params }) {
+export default function CraneStartup({ params }: { params: { id: string } }) {
   const router = useRouter()
   const { id } = params
   const [activeStep, setActiveStep] = useState(0)
@@ -29,7 +29,7 @@ export default function CraneStartup({ params }) {
     "control-functions": false,
     "emergency-procedures": false,
   })
-  const [photo, setPhoto] = useState(null)
+  const [photo, setPhoto] = useState<string | null>(null)
   const [faceVerified, setFaceVerified] = useState(false)
 
   // Sample crane data
@@ -49,7 +49,7 @@ export default function CraneStartup({ params }) {
     { id: 3, name: "Authorization", description: "Face ID verification to authorize start-up" },
   ]
 
-  const handleChecklistChange = (id) => {
+  const handleChecklistChange = (id: keyof typeof checklist) => {
     setChecklist({
       ...checklist,
       [id]: !checklist[id],
@@ -245,7 +245,7 @@ export default function CraneStartup({ params }) {
                       <div className="space-y-3">
                         {Object.entries(checklist).map(([key, value]) => (
                           <div key={key} className="flex items-start space-x-2">
-                            <Checkbox id={key} checked={value} onCheckedChange={() => handleChecklistChange(key)} />
+                            <Checkbox id={key} checked={value} onCheckedChange={() => handleChecklistChange(key as keyof typeof checklist)} />
                             <div className="grid gap-1.5 leading-none">
                               <Label htmlFor={key} className="text-sm font-medium capitalize">
                                 {key.replace(/-/g, " ")}

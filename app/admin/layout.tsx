@@ -13,7 +13,7 @@ export default function AdminLayout({
 }) {
   return (
     <SidebarProvider>
-      <div className="flex min-h-screen">
+      <div className="flex min-h-screen min-w-full">
         <SidebarNav role="admin" />
         <div className="flex flex-1 flex-col">
           <Header userName="Admin User" role="Administrator" notificationCount={5} />

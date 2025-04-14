@@ -17,15 +17,24 @@ export default function LoginPage() {
   const router = useRouter()
   const [showPassword, setShowPassword] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [username, setUsername] = useState("")
+  const [password, setPassword] = useState("")
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault()
     setLoading(true)
+    // Simulate API call
+    let path = "/login";
+    if (username == "admin") path = "/admin/dashboard";
+    else if (username == "manager") path = "/manager/dashboard";
+    else if (username == "operator") path = "/operator/dashboard";
+
+
 
     // Simulate login process
     setTimeout(() => {
       setLoading(false)
-      router.push("/dashboard")
+      router.push(path) 
     }, 1500)
   }
 
@@ -61,7 +70,14 @@ export default function LoginPage() {
                   <div className="space-y-2">
                     <Label htmlFor="username">Username</Label>
                     <div className="relative">
-                      <Input id="username" placeholder="Enter your username" className="pl-10" required />
+                      <Input 
+                        id="username" 
+                        placeholder="Enter your username" 
+                        className="pl-10" 
+                        required 
+                        value={username} 
+                        onChange={(e) => setUsername(e.target.value)}
+                      />
                       <User className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-500" />
                     </div>
                   </div>
@@ -79,6 +95,8 @@ export default function LoginPage() {
                         type={showPassword ? "text" : "password"}
                         placeholder="Enter your password"
                         className="pl-10"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
                         required
                       />
                       <Lock className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-500" />

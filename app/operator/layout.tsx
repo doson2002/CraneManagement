@@ -13,7 +13,7 @@ export default function OperatorLayout({
 }) {
   return (
     <SidebarProvider>
-      <div className="flex min-h-screen">
+      <div className="flex min-h-screen min-w-full">
         <SidebarNav role="operator" />
         <div className="flex flex-1 flex-col">
           <Header userName="Sam Operator" role="Operator" notificationCount={2} />

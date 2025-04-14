@@ -13,7 +13,7 @@ export default function ManagerLayout({
 }) {
   return (
     <SidebarProvider>
-      <div className="flex min-h-screen">
+      <div className="flex min-h-screen min-w-full">
         <SidebarNav role="manager" />
         <div className="flex flex-1 flex-col">
           <Header userName="John Manager" role="Manager" notificationCount={3} />
