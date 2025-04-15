@@ -1,13 +1,26 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { CalendarIcon, FilterIcon, PlusIcon, SearchIcon } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { Badge } from "@/components/ui/badge"
+import { useState } from "react";
+import { CalendarIcon, FilterIcon, PlusIcon, SearchIcon } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { Badge } from "@/components/ui/badge";
 import {
   Dialog,
   DialogContent,
@@ -16,9 +29,10 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog"
-import { Label } from "@/components/ui/label"
-import { Textarea } from "@/components/ui/textarea"
+} from "@/components/ui/dialog";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import JobTable from "@/app/manager/jobs/components/job-table";
 
 const jobs = [
   {
@@ -76,23 +90,23 @@ const jobs = [
     cranes: ["Mobile Crane MC-1", "Mobile Crane MC-4"],
     operators: ["Le Thi H", "Pham Van I"],
   },
-]
+];
 
 export default function JobsPage() {
-  const [isAddJobOpen, setIsAddJobOpen] = useState(false)
+  const [isAddJobOpen, setIsAddJobOpen] = useState(false);
 
   const getStatusColor = (status: string) => {
     switch (status) {
       case "Completed":
-        return "bg-green-100 text-green-800"
+        return "bg-green-100 text-green-800";
       case "In Progress":
-        return "bg-blue-100 text-blue-800"
+        return "bg-blue-100 text-blue-800";
       case "Scheduled":
-        return "bg-yellow-100 text-yellow-800"
+        return "bg-yellow-100 text-yellow-800";
       default:
-        return "bg-gray-100 text-gray-800"
+        return "bg-gray-100 text-gray-800";
     }
-  }
+  };
 
   return (
     <div className="p-6 space-y-6">
@@ -108,7 +122,9 @@ export default function JobsPage() {
           <DialogContent className="sm:max-w-[600px]">
             <DialogHeader>
               <DialogTitle>Add New Job</DialogTitle>
-              <DialogDescription>Enter the details for the new job assignment.</DialogDescription>
+              <DialogDescription>
+                Enter the details for the new job assignment.
+              </DialogDescription>
             </DialogHeader>
             <div className="grid gap-4 py-4">
               <div className="grid grid-cols-2 gap-4">
@@ -183,7 +199,10 @@ export default function JobsPage() {
               </div>
               <div className="space-y-2">
                 <Label htmlFor="notes">Notes</Label>
-                <Textarea id="notes" placeholder="Enter any additional notes or requirements" />
+                <Textarea
+                  id="notes"
+                  placeholder="Enter any additional notes or requirements"
+                />
               </div>
             </div>
             <DialogFooter>
@@ -196,83 +215,7 @@ export default function JobsPage() {
         </Dialog>
       </div>
 
-      <Card>
-        <CardHeader className="pb-2">
-          <CardTitle>Job List</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="flex justify-between items-center mb-4">
-            <div className="relative w-64">
-              <SearchIcon className="absolute left-2.5 top-2.5 h-4 w-4 text-gray-500" />
-              <Input placeholder="Search jobs..." className="pl-8" />
-            </div>
-            <div className="flex items-center space-x-2">
-              <Button variant="outline" size="sm">
-                <FilterIcon className="mr-2 h-4 w-4" />
-                Filter
-              </Button>
-              <Select>
-                <SelectTrigger className="w-[180px]">
-                  <SelectValue placeholder="Status" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">All Status</SelectItem>
-                  <SelectItem value="completed">Completed</SelectItem>
-                  <SelectItem value="in-progress">In Progress</SelectItem>
-                  <SelectItem value="scheduled">Scheduled</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-          </div>
-
-          <div className="rounded-md border">
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Job ID</TableHead>
-                  <TableHead>Title</TableHead>
-                  <TableHead>Client</TableHead>
-                  <TableHead>Location</TableHead>
-                  <TableHead>Date Range</TableHead>
-                  <TableHead>Status</TableHead>
-                  <TableHead>Actions</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {jobs.map((job) => (
-                  <TableRow key={job.id}>
-                    <TableCell className="font-medium">{job.id}</TableCell>
-                    <TableCell>
-                      <div>
-                        <div>{job.title}</div>
-                        <div className="text-xs text-gray-500">Cranes: {job.cranes.join(", ")}</div>
-                      </div>
-                    </TableCell>
-                    <TableCell>{job.client}</TableCell>
-                    <TableCell>{job.location}</TableCell>
-                    <TableCell>
-                      {new Date(job.startDate).toLocaleDateString()} - {new Date(job.endDate).toLocaleDateString()}
-                    </TableCell>
-                    <TableCell>
-                      <Badge className={getStatusColor(job.status)}>{job.status}</Badge>
-                    </TableCell>
-                    <TableCell>
-                      <div className="flex space-x-2">
-                        <Button variant="outline" size="sm">
-                          View
-                        </Button>
-                        <Button variant="outline" size="sm">
-                          Edit
-                        </Button>
-                      </div>
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </div>
-        </CardContent>
-      </Card>
+      <JobTable jobs={jobs} />
     </div>
-  )
+  );
 }
