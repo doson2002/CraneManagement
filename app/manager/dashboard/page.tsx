@@ -90,7 +90,7 @@ export default function ManagerDashboard() {
     { id: "OP004", name: "Sarah Williams", role: "Safety Inspector", status: "active", certExpiry: "2026-01-05" },
   ]
 
-  const getStatusBadge = (status) => {
+  const getStatusBadge = (status : string)=> {
     switch (status) {
       case "operational":
         return <Badge className="bg-green-500">Operational</Badge>
