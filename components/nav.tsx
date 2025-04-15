@@ -38,7 +38,7 @@ export default function HeaderNav({ role }: HeaderNavProps) {
   ];
 
   const managerLinks: NavLink[] = [
-    { href: "/manager/dashboard", label: "Dashboard", icon: BarChart3 },
+    { href: "/manager", label: "Dashboard", icon: BarChart3 },
     { href: "/manager/cranes", label: "Cranes", icon: Crane },
     { href: "/dashboard/maintenance", label: "Maintenance", icon: Wrench },
     {
