@@ -173,28 +173,12 @@ export default function ManagerDashboard() {
         <aside className="w-16 md:w-64 border-r bg-muted/40">
           <nav className="flex flex-col p-2 md:p-4 gap-2">
             <Button
-              variant={activeTab === "dashboard" ? "default" : "ghost"}
-              className="justify-start"
-              onClick={() => setActiveTab("dashboard")}
-            >
-              <User className="h-5 w-5 md:mr-2" />
-              <span className="hidden md:inline">Dashboard</span>
-            </Button>
-            <Button
               variant={activeTab === "cranes" ? "default" : "ghost"}
               className="justify-start"
               onClick={() => setActiveTab("cranes")}
             >
               <Crane className="h-5 w-5 md:mr-2" />
               <span className="hidden md:inline">Crane Management</span>
-            </Button>
-            <Button
-              variant={activeTab === "requests" ? "default" : "ghost"}
-              className="justify-start"
-              onClick={() => setActiveTab("requests")}
-            >
-              <ClipboardList className="h-5 w-5 md:mr-2" />
-              <span className="hidden md:inline">Work Requests</span>
             </Button>
             <Button
               variant={activeTab === "operators" ? "default" : "ghost"}
@@ -213,147 +197,15 @@ export default function ManagerDashboard() {
               <span className="hidden md:inline">History</span>
             </Button>
             <div className="flex-1"></div>
-            <Button
-              variant="ghost"
-              className="justify-start text-red-500 hover:text-red-600 hover:bg-red-100"
-              onClick={() => router.push("/login")}
-            >
-              <LogOut className="h-5 w-5 md:mr-2" />
-              <span className="hidden md:inline">Logout</span>
-            </Button>
           </nav>
         </aside>
         <main className="flex-1 p-4 md:p-6 overflow-auto">
           <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-4">
-            <TabsList className="grid w-full grid-cols-5">
-              <TabsTrigger value="dashboard">Dashboard</TabsTrigger>
+            <TabsList className="grid w-full grid-cols-3">
               <TabsTrigger value="cranes">Cranes</TabsTrigger>
-              <TabsTrigger value="requests">Requests</TabsTrigger>
               <TabsTrigger value="operators">Operators</TabsTrigger>
               <TabsTrigger value="history">History</TabsTrigger>
             </TabsList>
-
-            <TabsContent value="dashboard" className="space-y-4">
-              <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-                <Card>
-                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium">Total Cranes</CardTitle>
-                    <Crane className="h-4 w-4 text-muted-foreground" />
-                  </CardHeader>
-                  <CardContent>
-                    <div className="text-2xl font-bold">{cranes.length}</div>
-                    <p className="text-xs text-muted-foreground">
-                      {cranes.filter((c) => c.status === "operational").length} operational
-                    </p>
-                  </CardContent>
-                </Card>
-                <Card>
-                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium">Pending Requests</CardTitle>
-                    <ClipboardList className="h-4 w-4 text-muted-foreground" />
-                  </CardHeader>
-                  <CardContent>
-                    <div className="text-2xl font-bold">
-                      {workRequests.filter((r) => r.status === "pending").length}
-                    </div>
-                    <p className="text-xs text-muted-foreground">Requires your approval</p>
-                  </CardContent>
-                </Card>
-                <Card>
-                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium">Active Operators</CardTitle>
-                    <Users className="h-4 w-4 text-muted-foreground" />
-                  </CardHeader>
-                  <CardContent>
-                    <div className="text-2xl font-bold">{operators.filter((o) => o.status === "active").length}</div>
-                    <p className="text-xs text-muted-foreground">Out of {operators.length} total operators</p>
-                  </CardContent>
-                </Card>
-                <Card>
-                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium">Maintenance</CardTitle>
-                    <Tool className="h-4 w-4 text-muted-foreground" />
-                  </CardHeader>
-                  <CardContent>
-                    <div className="text-2xl font-bold">{cranes.filter((c) => c.status === "maintenance").length}</div>
-                    <p className="text-xs text-muted-foreground">Cranes under maintenance</p>
-                  </CardContent>
-                </Card>
-              </div>
-
-              <h2 className="text-xl font-bold mt-6 mb-4">Recent Work Requests</h2>
-              <Card>
-                <CardContent className="p-0">
-                  <Table>
-                    <TableHeader>
-                      <TableRow>
-                        <TableHead>ID</TableHead>
-                        <TableHead>Crane</TableHead>
-                        <TableHead>Type</TableHead>
-                        <TableHead>Operator</TableHead>
-                        <TableHead>Date</TableHead>
-                        <TableHead>Status</TableHead>
-                        <TableHead className="text-right">Action</TableHead>
-                      </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                      {workRequests.slice(0, 5).map((request) => (
-                        <TableRow key={request.id}>
-                          <TableCell className="font-medium">{request.id}</TableCell>
-                          <TableCell>{request.crane}</TableCell>
-                          <TableCell>{request.type}</TableCell>
-                          <TableCell>{request.operator}</TableCell>
-                          <TableCell>{request.date}</TableCell>
-                          <TableCell>{getStatusBadge(request.status)}</TableCell>
-                          <TableCell className="text-right">
-                            <Button variant="ghost" size="sm">
-                              View
-                            </Button>
-                          </TableCell>
-                        </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
-                </CardContent>
-                <CardFooter className="flex justify-end p-4">
-                  <Button variant="outline" size="sm" onClick={() => setActiveTab("requests")}>
-                    View All Requests
-                  </Button>
-                </CardFooter>
-              </Card>
-
-              <h2 className="text-xl font-bold mt-6 mb-4">Crane Status Overview</h2>
-              <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-                {cranes.slice(0, 3).map((crane) => (
-                  <Card key={crane.id}>
-                    <CardHeader className="pb-2">
-                      <div className="flex justify-between items-start">
-                        <CardTitle className="text-lg">{crane.name}</CardTitle>
-                        {getStatusBadge(crane.status)}
-                      </div>
-                      <CardDescription>ID: {crane.id}</CardDescription>
-                    </CardHeader>
-                    <CardContent className="pb-2">
-                      <div className="text-sm space-y-1">
-                        <div className="flex justify-between">
-                          <span className="text-muted-foreground">Location:</span>
-                          <span>{crane.location}</span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span className="text-muted-foreground">Last Maintenance:</span>
-                          <span>{crane.lastMaintenance}</span>
-                        </div>
-                      </div>
-                    </CardContent>
-                    <CardFooter>
-                      <Button variant="outline" size="sm" className="w-full" onClick={() => setActiveTab("cranes")}>
-                        View Details
-                      </Button>
-                    </CardFooter>
-                  </Card>
-                ))}
-              </div>
-            </TabsContent>
 
             <TabsContent value="cranes">
               <div className="flex justify-between items-center mb-6">
@@ -407,83 +259,6 @@ export default function ManagerDashboard() {
                               <Button variant="ghost" size="sm">
                                 Edit
                               </Button>
-                              <Button variant="ghost" size="sm">
-                                View
-                              </Button>
-                            </div>
-                          </TableCell>
-                        </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
-                </CardContent>
-              </Card>
-            </TabsContent>
-
-            <TabsContent value="requests">
-              <div className="flex justify-between items-center mb-6">
-                <h2 className="text-2xl font-bold">Work Requests</h2>
-                <div className="flex gap-2">
-                  <div className="relative">
-                    <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-                    <Input
-                      type="search"
-                      placeholder="Search requests..."
-                      className="pl-8 w-[250px]"
-                      value={searchQuery}
-                      onChange={(e) => setSearchQuery(e.target.value)}
-                    />
-                  </div>
-                  <Button>
-                    <Plus className="h-4 w-4 mr-2" />
-                    New Request
-                  </Button>
-                </div>
-              </div>
-
-              <Card>
-                <CardContent className="p-0">
-                  <Table>
-                    <TableHeader>
-                      <TableRow>
-                        <TableHead>ID</TableHead>
-                        <TableHead>Crane</TableHead>
-                        <TableHead>Type</TableHead>
-                        <TableHead>Operator</TableHead>
-                        <TableHead>Date</TableHead>
-                        <TableHead>Status</TableHead>
-                        <TableHead className="text-right">Actions</TableHead>
-                      </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                      {filteredRequests.map((request) => (
-                        <TableRow key={request.id}>
-                          <TableCell className="font-medium">{request.id}</TableCell>
-                          <TableCell>{request.crane}</TableCell>
-                          <TableCell>{request.type}</TableCell>
-                          <TableCell>{request.operator}</TableCell>
-                          <TableCell>{request.date}</TableCell>
-                          <TableCell>{getStatusBadge(request.status)}</TableCell>
-                          <TableCell className="text-right">
-                            <div className="flex justify-end gap-2">
-                              {request.status === "pending" && (
-                                <>
-                                  <Button
-                                    variant="outline"
-                                    size="sm"
-                                    className="text-green-500 border-green-500 hover:bg-green-50"
-                                  >
-                                    Approve
-                                  </Button>
-                                  <Button
-                                    variant="outline"
-                                    size="sm"
-                                    className="text-red-500 border-red-500 hover:bg-red-50"
-                                  >
-                                    Reject
-                                  </Button>
-                                </>
-                              )}
                               <Button variant="ghost" size="sm">
                                 View
                               </Button>
