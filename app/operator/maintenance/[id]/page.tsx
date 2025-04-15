@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { use, useState } from "react";
+import { useParams, useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -25,13 +25,9 @@ import { Progress } from "@/components/ui/progress";
 import { Checkbox } from "@/components/ui/checkbox";
 import Link from "next/link";
 
-export default function CraneMaintenance({
-  params,
-}: {
-  params: { id: string };
-}) {
+export default function CraneMaintenance() {
   const router = useRouter();
-  const { id } = params;
+  const { id } = useParams();
   const [activeStep, setActiveStep] = useState(0);
   const [maintenanceStatus, setMaintenanceStatus] = useState("in-progress");
   const [checklist, setChecklist] = useState({
@@ -152,7 +148,7 @@ export default function CraneMaintenance({
   );
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col w-full">
       <div className="container py-4">
         <Link
           href="/operator/dashboard"

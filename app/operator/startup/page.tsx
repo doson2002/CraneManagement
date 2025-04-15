@@ -38,7 +38,7 @@ const cranes = [
 export default function StartUpPage() {
   const router = useRouter();
   return (
-    <Card>
+    <Card className="h-full">
       <CardHeader>
         <CardTitle>Crane Start-up Procedure</CardTitle>
         <CardDescription>

@@ -133,7 +133,7 @@ export default function QualificationTest() {
   const passed = score >= 70; // Pass threshold is 70%
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col w-full">
       <div className="container py-4">
         <Link
           href="/login"

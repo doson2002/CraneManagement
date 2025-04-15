@@ -41,26 +41,26 @@ export default function MaintenancePage() {
   const getStatusBadge = (status: string) => {
     switch (status) {
       case "operational":
-        return <Badge className="bg-green-500">Operational</Badge>
+        return <Badge className="bg-green-500">Operational</Badge>;
       case "maintenance":
-        return <Badge className="bg-blue-500">Under Maintenance</Badge>
+        return <Badge className="bg-blue-500">Under Maintenance</Badge>;
       case "warning":
-        return <Badge className="bg-yellow-500">Needs Attention</Badge>
+        return <Badge className="bg-yellow-500">Needs Attention</Badge>;
       default:
-        return <Badge>Unknown</Badge>
+        return <Badge>Unknown</Badge>;
     }
-  }
+  };
 
   return (
-    <Card>
+    <Card className="h-full">
       <CardHeader>
         <CardTitle>Crane Maintenance</CardTitle>
         <CardDescription>
           Update maintenance status and perform required checks
         </CardDescription>
       </CardHeader>
-      <CardContent className="space-y-4">
-        <div className="rounded-lg border p-4">
+      <CardContent className="space-y-4 h-full">
+        <div className="rounded-lg border p-4 h-min">
           <h3 className="font-medium mb-2">
             Select a crane to perform maintenance
           </h3>
@@ -72,13 +72,24 @@ export default function MaintenancePage() {
                 className="justify-start h-auto py-3"
                 onClick={() => router.push(`/operator/maintenance/${crane.id}`)}
               >
-                <div className="flex flex-col items-start text-left">
+                <div className="flex flex-col items-start text-left gap-4">
                   <span>{crane.name}</span>
                   <span className="text-xs text-muted-foreground">
                     ID: {crane.id}
                   </span>
+                  <span className="text-xs text-muted-foreground">
+                    <span className="font-medium">Last Maintenance:</span>{" "}
+                    {new Date(crane.lastMaintenance).toLocaleDateString(
+                      "en-US",
+                      {
+                        year: "numeric",
+                        month: "2-digit",
+                        day: "2-digit",
+                      }
+                    )}
+                  </span>
+                  {getStatusBadge(crane.status)}
                 </div>
-                {getStatusBadge(crane.status)}
               </Button>
             ))}
           </div>
