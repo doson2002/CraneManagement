@@ -28,9 +28,6 @@ export default function LoginPage() {
     if (username == "admin") path = "/admin/dashboard";
     else if (username == "manager") path = "/manager/dashboard";
     else if (username == "operator") path = "/operator/dashboard";
-
-
-
     // Simulate login process
     setTimeout(() => {
       setLoading(false)
@@ -54,7 +51,7 @@ export default function LoginPage() {
           <CardHeader className="space-y-1">
             <div className="flex items-center justify-between">
               <CardTitle className="text-2xl font-bold">Login</CardTitle>
-              <Image src="/placeholder.svg?height=40&width=40" alt="Logo" width={40} height={40} className="rounded" />
+              <Image src="/placeholder.svg?height=60&width=40" alt="Logo" width={40} height={60} className="rounded" />
             </div>
             <CardDescription>Enter your credentials to access your account</CardDescription>
           </CardHeader>
@@ -137,20 +134,6 @@ export default function LoginPage() {
               </TabsContent>
             </Tabs>
           </CardContent>
-          <CardFooter className="flex flex-col space-y-4">
-            <div className="relative flex items-center w-full">
-              <div className="flex-grow border-t border-gray-300"></div>
-              <span className="mx-4 flex-shrink text-gray-400 text-sm">or</span>
-              <div className="flex-grow border-t border-gray-300"></div>
-            </div>
-
-            <div className="text-center text-sm">
-              Don&apos;t have an account?{" "}
-              <Link href="/register" className="font-medium text-blue-600 hover:underline">
-                Register
-              </Link>
-            </div>
-          </CardFooter>
         </Card>
       </div>
     </div>
