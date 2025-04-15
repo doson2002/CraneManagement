@@ -1,25 +1,11 @@
 "use client";
 import { AlertCircle, CheckCircle2, XCircle } from "lucide-react";
 import { useParams } from "next/navigation";
-import {
-  ConeIcon as Crane,
-  Calendar,
-  Clock,
-  Tag,
-  AlertTriangle,
-} from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Progress } from "@/components/ui/progress";
 import CraneOverview from "@/app/manager/cranes/[id]/components/crane-overview";
-import CraneMantainance from "@/app/manager/cranes/[id]/components/crane-mantainance";
+import CraneMantainance from "@/app/manager/cranes/[id]/components/crane-maintenance";
 import CraneStartupHistory from "@/app/manager/cranes/[id]/components/crane-startup-history";
 import CraneMetric from "@/app/manager/cranes/[id]/components/crane-metric";
 

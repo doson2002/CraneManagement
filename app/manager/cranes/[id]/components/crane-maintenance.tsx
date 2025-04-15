@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
-export default function CraneMantainance({ crane }: { crane: any }) {
+export default function CraneMaintenance({ crane }: { crane: any }) {
     return (
         <div className="grid gap-4 mt-5">
             <Card>
