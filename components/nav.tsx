@@ -42,11 +42,6 @@ export default function HeaderNav({ role }: HeaderNavProps) {
     { href: "/manager/cranes", label: "Cranes", icon: Crane },
     { href: "/dashboard/maintenance", label: "Maintenance", icon: Wrench },
     {
-      href: "/dashboard/crane-startup",
-      label: "Crane Startup",
-      icon: PlayCircle,
-    },
-    {
       href: "/dashboard/expertise-test",
       label: "Expertise Test",
       icon: ClipboardCheck,

@@ -109,7 +109,7 @@ export default function CraneCard({ crane }: { crane: Crane }) {
           </div>
         </div>
         <div className="mt-4 flex justify-end">
-          <Link href={`/dashboard/cranes/${crane.id}`}>
+          <Link href={`/manager/cranes/${crane.id}`}>
             <Button variant="outline" size="sm">
               View Details
             </Button>
