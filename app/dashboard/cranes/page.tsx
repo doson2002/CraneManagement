@@ -238,59 +238,7 @@ export default function CranesPage() {
         <TabsContent value="all" className="mt-6">
           {view === "grid" ? (
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {cranes.map((crane) => (
-                <Card key={crane.id} className="overflow-hidden">
-                  <div className="relative h-48">
-                    <Image src={crane.image || "/placeholder.svg"} alt={crane.name} fill className="object-cover" />
-                    <div
-                      className={`absolute right-2 top-2 rounded-full px-2 py-1 text-xs font-medium ${getStatusColor(crane.status)}`}
-                    >
-                      <div className="flex items-center gap-1">
-                        {getStatusIcon(crane.status)}
-                        {getStatusText(crane.status)}
-                      </div>
-                    </div>
-                  </div>
-                  <CardHeader className="pb-2">
-                    <div className="flex items-center justify-between">
-                      <CardTitle className="text-xl">{crane.name}</CardTitle>
-                      <Button variant="ghost" size="icon">
-                        <Settings className="h-4 w-4" />
-                      </Button>
-                    </div>
-                    <CardDescription>{crane.type}</CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="space-y-2 text-sm">
-                      <div className="flex items-center gap-2">
-                        <MapPin className="h-4 w-4 text-muted-foreground" />
-                        <span>{crane.location}</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <Crane className="h-4 w-4 text-muted-foreground" />
-                        <span>ID: {crane.id}</span>
-                      </div>
-                      <div className="grid grid-cols-2 gap-2 pt-2">
-                        <div>
-                          <p className="text-xs text-muted-foreground">Last Maintenance</p>
-                          <p>{crane.lastMaintenance}</p>
-                        </div>
-                        <div>
-                          <p className="text-xs text-muted-foreground">Next Maintenance</p>
-                          <p>{crane.nextMaintenance}</p>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="mt-4 flex justify-end">
-                      <Link href={`/dashboard/cranes/${crane.id}`}>
-                        <Button variant="outline" size="sm">
-                          View Details
-                        </Button>
-                      </Link>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
+              
             </div>
           ) : (
             <div className="rounded-md border">
@@ -303,36 +251,6 @@ export default function CranesPage() {
                 <div className="col-span-1">Actions</div>
               </div>
               <div className="divide-y">
-                {cranes.map((crane) => (
-                  <div key={crane.id} className="grid grid-cols-12 gap-2 p-4">
-                    <div className="col-span-3 font-medium">{crane.name}</div>
-                    <div className="col-span-2">{crane.id}</div>
-                    <div className="col-span-2">{crane.type}</div>
-                    <div className="col-span-2">
-                      <div
-                        className={`inline-flex items-center rounded-full px-2 py-1 text-xs font-medium ${getStatusColor(crane.status)}`}
-                      >
-                        {getStatusIcon(crane.status)}
-                        <span className="ml-1">{getStatusText(crane.status)}</span>
-                      </div>
-                    </div>
-                    <div className="col-span-2 truncate" title={crane.location}>
-                      {crane.location}
-                    </div>
-                    <div className="col-span-1">
-                      <div className="flex items-center gap-2">
-                        <Link href={`/dashboard/cranes/${crane.id}`}>
-                          <Button variant="ghost" size="icon" className="h-8 w-8">
-                            <Search className="h-4 w-4" />
-                          </Button>
-                        </Link>
-                        <Button variant="ghost" size="icon" className="h-8 w-8">
-                          <Settings className="h-4 w-4" />
-                        </Button>
-                      </div>
-                    </div>
-                  </div>
-                ))}
               </div>
             </div>
           )}
