@@ -219,6 +219,50 @@ export default function DashboardPage() {
         ))}
       </div>
 
+      <div className="w-full">
+        <Card className="w-full">
+          <CardHeader className="flex items-center justify-start">
+            <CardTitle className="text-left w-full">
+              Cranes Status Overview
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="p-4">
+            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+              {cranes.map((crane) => (
+                <Card key={crane.id}>
+                  <CardHeader className="pb-2">
+                    <div className="flex justify-between items-start">
+                      <CardTitle className="text-lg">{crane.name}</CardTitle>
+                      {getStatusBadge(crane.status)}
+                    </div>
+                    <CardDescription>ID: {crane.id}</CardDescription>
+                  </CardHeader>
+                  <CardContent className="pb-2">
+                    <div className="text-sm space-y-1">
+                      <div className="flex justify-between">
+                        <span className="text-muted-foreground">Location:</span>
+                        <span>{crane.location}</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-muted-foreground">
+                          Last Maintenance:
+                        </span>
+                        <span>{crane.lastMaintenance}</span>
+                      </div>
+                    </div>
+                  </CardContent>
+                  <CardFooter>
+                    <Button variant="outline" size="sm" className="w-full">
+                      View Details
+                    </Button>
+                  </CardFooter>
+                </Card>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
         <Card className="lg:col-span-4">
           <CardHeader>
@@ -408,49 +452,7 @@ export default function DashboardPage() {
         </Card>
       </div>
 
-      <div className="w-full">
-        <Card className="w-full">
-          <CardHeader className="flex items-center justify-start">
-            <CardTitle className="text-left w-full">
-              Cranes Status Overview
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="p-4">
-            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-              {cranes.map((crane) => (
-                <Card key={crane.id}>
-                  <CardHeader className="pb-2">
-                    <div className="flex justify-between items-start">
-                      <CardTitle className="text-lg">{crane.name}</CardTitle>
-                      {getStatusBadge(crane.status)}
-                    </div>
-                    <CardDescription>ID: {crane.id}</CardDescription>
-                  </CardHeader>
-                  <CardContent className="pb-2">
-                    <div className="text-sm space-y-1">
-                      <div className="flex justify-between">
-                        <span className="text-muted-foreground">Location:</span>
-                        <span>{crane.location}</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span className="text-muted-foreground">
-                          Last Maintenance:
-                        </span>
-                        <span>{crane.lastMaintenance}</span>
-                      </div>
-                    </div>
-                  </CardContent>
-                  <CardFooter>
-                    <Button variant="outline" size="sm" className="w-full">
-                      View Details
-                    </Button>
-                  </CardFooter>
-                </Card>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
-      </div>
+      
 
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         <Alert className="bg-amber-50 text-amber-800 border-amber-200">
