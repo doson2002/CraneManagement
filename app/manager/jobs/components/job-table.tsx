@@ -50,10 +50,7 @@ export default function JobTable({ jobs }: JobTableProps) {
   };
 
   return (
-    <Card>
-      <CardHeader className="pb-2">
-        <CardTitle>Job List</CardTitle>
-      </CardHeader>
+    <Card className="w-full pt-5">
       <CardContent>
         <div className="flex justify-between items-center mb-4">
           <div className="relative w-64">

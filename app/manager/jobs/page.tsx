@@ -109,113 +109,119 @@ export default function JobsPage() {
   };
 
   return (
-    <div className="p-6 space-y-6">
-      <div className="flex justify-between items-center">
-        <h1 className="text-2xl font-bold">Job Management</h1>
-        <Dialog open={isAddJobOpen} onOpenChange={setIsAddJobOpen}>
-          <DialogTrigger asChild>
-            <Button>
-              <PlusIcon className="mr-2 h-4 w-4" />
-              Add New Job
-            </Button>
-          </DialogTrigger>
-          <DialogContent className="sm:max-w-[600px]">
-            <DialogHeader>
-              <DialogTitle>Add New Job</DialogTitle>
-              <DialogDescription>
-                Enter the details for the new job assignment.
-              </DialogDescription>
-            </DialogHeader>
-            <div className="grid gap-4 py-4">
-              <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label htmlFor="job-title">Job Title</Label>
-                  <Input id="job-title" placeholder="Enter job title" />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="client">Client</Label>
-                  <Input id="client" placeholder="Enter client name" />
-                </div>
-              </div>
-              <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label htmlFor="start-date">Start Date</Label>
-                  <div className="relative">
-                    <Input id="start-date" type="date" />
-                    <CalendarIcon className="absolute right-3 top-2.5 h-4 w-4 text-gray-500" />
-                  </div>
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="end-date">End Date</Label>
-                  <div className="relative">
-                    <Input id="end-date" type="date" />
-                    <CalendarIcon className="absolute right-3 top-2.5 h-4 w-4 text-gray-500" />
-                  </div>
-                </div>
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="location">Location</Label>
-                <Input id="location" placeholder="Enter job location" />
-              </div>
-              <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label htmlFor="cranes">Assign Cranes</Label>
-                  <Select>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select cranes" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="tc-1">Tower Crane TC-1</SelectItem>
-                      <SelectItem value="tc-3">Tower Crane TC-3</SelectItem>
-                      <SelectItem value="tc-5">Tower Crane TC-5</SelectItem>
-                      <SelectItem value="mc-1">Mobile Crane MC-1</SelectItem>
-                      <SelectItem value="mc-2">Mobile Crane MC-2</SelectItem>
-                      <SelectItem value="mc-3">Mobile Crane MC-3</SelectItem>
-                      <SelectItem value="mc-4">Mobile Crane MC-4</SelectItem>
-                      <SelectItem value="mc-5">Mobile Crane MC-5</SelectItem>
-                      <SelectItem value="cc-1">Crawler Crane CC-1</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="operators">Assign Operators</Label>
-                  <Select>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select operators" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="op-1">Nguyen Van A</SelectItem>
-                      <SelectItem value="op-2">Tran Thi B</SelectItem>
-                      <SelectItem value="op-3">Le Van C</SelectItem>
-                      <SelectItem value="op-4">Pham Van D</SelectItem>
-                      <SelectItem value="op-5">Hoang Thi E</SelectItem>
-                      <SelectItem value="op-6">Nguyen Van F</SelectItem>
-                      <SelectItem value="op-7">Tran Van G</SelectItem>
-                      <SelectItem value="op-8">Le Thi H</SelectItem>
-                      <SelectItem value="op-9">Pham Van I</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="notes">Notes</Label>
-                <Textarea
-                  id="notes"
-                  placeholder="Enter any additional notes or requirements"
-                />
-              </div>
-            </div>
-            <DialogFooter>
-              <Button variant="outline" onClick={() => setIsAddJobOpen(false)}>
-                Cancel
+    <div className="p-2 space-y-6">
+      <Card className="w-full p-6 space-y-6">
+        <CardHeader className="flex flex-row justify-between items-center ">
+          <h1 className="text-2xl font-bold">Job Management</h1>
+          <Dialog open={isAddJobOpen} onOpenChange={setIsAddJobOpen}>
+            <DialogTrigger asChild>
+              <Button>
+                <PlusIcon className="mr-2 h-4 w-4" />
+                Add New Job
               </Button>
-              <Button onClick={() => setIsAddJobOpen(false)}>Save Job</Button>
-            </DialogFooter>
-          </DialogContent>
-        </Dialog>
-      </div>
-
-      <JobTable jobs={jobs} />
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-[600px]">
+              <DialogHeader>
+                <DialogTitle>Add New Job</DialogTitle>
+                <DialogDescription>
+                  Enter the details for the new job assignment.
+                </DialogDescription>
+              </DialogHeader>
+              <div className="grid gap-4 py-4">
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="job-title">Job Title</Label>
+                    <Input id="job-title" placeholder="Enter job title" />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="client">Client</Label>
+                    <Input id="client" placeholder="Enter client name" />
+                  </div>
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="start-date">Start Date</Label>
+                    <div className="relative">
+                      <Input id="start-date" type="date" />
+                      <CalendarIcon className="absolute right-3 top-2.5 h-4 w-4 text-gray-500" />
+                    </div>
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="end-date">End Date</Label>
+                    <div className="relative">
+                      <Input id="end-date" type="date" />
+                      <CalendarIcon className="absolute right-3 top-2.5 h-4 w-4 text-gray-500" />
+                    </div>
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="location">Location</Label>
+                  <Input id="location" placeholder="Enter job location" />
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="cranes">Assign Cranes</Label>
+                    <Select>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select cranes" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="tc-1">Tower Crane TC-1</SelectItem>
+                        <SelectItem value="tc-3">Tower Crane TC-3</SelectItem>
+                        <SelectItem value="tc-5">Tower Crane TC-5</SelectItem>
+                        <SelectItem value="mc-1">Mobile Crane MC-1</SelectItem>
+                        <SelectItem value="mc-2">Mobile Crane MC-2</SelectItem>
+                        <SelectItem value="mc-3">Mobile Crane MC-3</SelectItem>
+                        <SelectItem value="mc-4">Mobile Crane MC-4</SelectItem>
+                        <SelectItem value="mc-5">Mobile Crane MC-5</SelectItem>
+                        <SelectItem value="cc-1">Crawler Crane CC-1</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="operators">Assign Operators</Label>
+                    <Select>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select operators" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="op-1">Nguyen Van A</SelectItem>
+                        <SelectItem value="op-2">Tran Thi B</SelectItem>
+                        <SelectItem value="op-3">Le Van C</SelectItem>
+                        <SelectItem value="op-4">Pham Van D</SelectItem>
+                        <SelectItem value="op-5">Hoang Thi E</SelectItem>
+                        <SelectItem value="op-6">Nguyen Van F</SelectItem>
+                        <SelectItem value="op-7">Tran Van G</SelectItem>
+                        <SelectItem value="op-8">Le Thi H</SelectItem>
+                        <SelectItem value="op-9">Pham Van I</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="notes">Notes</Label>
+                  <Textarea
+                    id="notes"
+                    placeholder="Enter any additional notes or requirements"
+                  />
+                </div>
+              </div>
+              <DialogFooter>
+                <Button
+                  variant="outline"
+                  onClick={() => setIsAddJobOpen(false)}
+                >
+                  Cancel
+                </Button>
+                <Button onClick={() => setIsAddJobOpen(false)}>Save Job</Button>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
+        </CardHeader>
+        <CardContent>
+          <JobTable jobs={jobs} />
+        </CardContent>
+      </Card>
     </div>
   );
 }
