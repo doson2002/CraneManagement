@@ -72,7 +72,6 @@ export function SidebarNav({ role }: SidebarNavProps) {
     { href: "/admin/equipment", label: "Equipment", icon: Package },
     { href: "/admin/suppliers", label: "Suppliers", icon: Truck },
     { href: "/admin/notifications", label: "Notifications", icon: Bell },
-    { href: "/dashboard/settings", label: "Settings", icon: Settings },
   ];
 
   const links =
