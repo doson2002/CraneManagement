@@ -58,7 +58,7 @@ export function SidebarNav({ role }: SidebarNavProps) {
     { href: "/manager/jobs", label: "Jobs", icon: ClipboardCheck },
     { href: "/manager/workrequests", label: "Work Requests", icon: ClipboardList },
     { href: "/manager/equipments", label: "Equipment", icon: Package },
-    { href: "/dashboard/suppliers", label: "Suppliers", icon: Truck },
+    { href: "/manager/suppliers", label: "Suppliers", icon: Truck },
   ];
 
   const adminLinks: NavLink[] = [
