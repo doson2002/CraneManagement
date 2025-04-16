@@ -64,7 +64,7 @@ export default function TaskCard({ task }: TaskCardProps) {
       </CardContent>
       <CardFooter className="flex justify-between">
         <StatusBadge status={task.status} />
-        <Link href={`/dashboard/maintenance/${task.id}`}>
+        <Link href={`/manager/maintenance/${task.id}`}>
           <Button variant="outline" size="sm">
             View Details
           </Button>
