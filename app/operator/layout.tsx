@@ -19,7 +19,7 @@ export default function OperatorLayout({
         <div className="flex flex-1 flex-col">
           <Header userName="Sam Operator" role="operator" notificationCount={2} />
           
-          <main className="flex-1 p-4 md:p-6 w-[1440px] mx-auto my-0">{children}</main>
+          <main className="flex-1 p-4 md:p-6">{children}</main>
         </div>
       </div>
     </SidebarProvider>
