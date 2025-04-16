@@ -26,7 +26,7 @@ export default function LoginPage() {
     // Simulate API call
     let path = "/login";
     if (username == "admin") path = "/admin/dashboard";
-    else if (username == "manager") path = "/manager/dashboard";
+    else if (username == "manager") path = "/manager";
     else if (username == "operator") path = "/operator/dashboard";
     // Simulate login process
     setTimeout(() => {

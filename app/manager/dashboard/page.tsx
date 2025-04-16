@@ -1,36 +1,37 @@
-"use client"
-
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Button } from "@/components/ui/button";
+import {
+  AlertCircle,
+  ArrowRight,
+  CheckCircle2,
+  Clock,
   ConeIcon as Crane,
-  Settings,
-  User,
-  Bell,
-  LogOut,
-  PenToolIcon as Tool,
-  Users,
-  ClipboardList,
+  FileText,
   Plus,
-  MapPin,
-  History,
-  Search,
-  AlertTriangle,
-} from "lucide-react"
-import { Badge } from "@/components/ui/badge"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { useRouter } from "next/navigation"
-import { Input } from "@/components/ui/input"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
+  PenToolIcon as Tool,
+  TrendingUp,
+  Users,
+  Truck,
+} from "lucide-react";
+import {
+  TableHeader,
+  TableRow,
+  TableHead,
+  TableBody,
+  TableCell,
+  Table,
+} from "@/components/ui/table";
+import { Badge } from "@/components/ui/badge";
 
-export default function ManagerDashboard() {
-  const router = useRouter()
-  const [activeTab, setActiveTab] = useState("dashboard")
-  const [searchQuery, setSearchQuery] = useState("")
-
-  // Sample data for the dashboard
+export default function DashboardPage() {
   const cranes = [
     {
       id: "CR001",
@@ -67,12 +68,33 @@ export default function ManagerDashboard() {
       location: "Port Facility",
       lastMaintenance: "2025-03-20",
     },
-  ]
+  ];
 
   const workRequests = [
-    { id: "WR001", crane: "CR001", type: "Operation", operator: "John Smith", status: "pending", date: "2025-04-10" },
-    { id: "WR002", crane: "CR002", type: "Maintenance", operator: "Jane Doe", status: "approved", date: "2025-04-05" },
-    { id: "WR003", crane: "CR003", type: "Operation", operator: "Mike Johnson", status: "pending", date: "2025-04-12" },
+    {
+      id: "WR001",
+      crane: "CR001",
+      type: "Operation",
+      operator: "John Smith",
+      status: "pending",
+      date: "2025-04-10",
+    },
+    {
+      id: "WR002",
+      crane: "CR002",
+      type: "Maintenance",
+      operator: "Jane Doe",
+      status: "approved",
+      date: "2025-04-05",
+    },
+    {
+      id: "WR003",
+      crane: "CR003",
+      type: "Operation",
+      operator: "Mike Johnson",
+      status: "pending",
+      date: "2025-04-12",
+    },
     {
       id: "WR004",
       crane: "CR004",
@@ -81,332 +103,391 @@ export default function ManagerDashboard() {
       status: "rejected",
       date: "2025-04-03",
     },
-  ]
+  ];
 
-  const operators = [
-    { id: "OP001", name: "John Smith", role: "Crane Operator", status: "active", certExpiry: "2025-12-15" },
-    { id: "OP002", name: "Jane Doe", role: "Maintenance Technician", status: "active", certExpiry: "2025-10-20" },
-    { id: "OP003", name: "Mike Johnson", role: "Crane Operator", status: "inactive", certExpiry: "2025-05-10" },
-    { id: "OP004", name: "Sarah Williams", role: "Safety Inspector", status: "active", certExpiry: "2026-01-05" },
-  ]
-
-  const getStatusBadge = (status : string)=> {
+  const getStatusBadge = (status: string) => {
     switch (status) {
       case "operational":
-        return <Badge className="bg-green-500">Operational</Badge>
+        return <Badge className="bg-green-500">Operational</Badge>;
       case "maintenance":
-        return <Badge className="bg-blue-500">Under Maintenance</Badge>
+        return <Badge className="bg-blue-500">Under Maintenance</Badge>;
       case "warning":
-        return <Badge className="bg-yellow-500">Needs Attention</Badge>
+        return <Badge className="bg-yellow-500">Needs Attention</Badge>;
       case "pending":
         return (
-          <Badge variant="outline" className="text-yellow-500 border-yellow-500">
+          <Badge
+            variant="outline"
+            className="text-yellow-500 border-yellow-500"
+          >
             Pending
           </Badge>
-        )
+        );
       case "approved":
-        return <Badge className="bg-green-500">Approved</Badge>
+        return <Badge className="bg-green-500">Approved</Badge>;
       case "rejected":
-        return <Badge className="bg-red-500">Rejected</Badge>
+        return <Badge className="bg-red-500">Rejected</Badge>;
       case "active":
-        return <Badge className="bg-green-500">Active</Badge>
+        return <Badge className="bg-green-500">Active</Badge>;
       case "inactive":
         return (
           <Badge variant="outline" className="text-muted-foreground">
             Inactive
           </Badge>
-        )
+        );
       default:
-        return <Badge>Unknown</Badge>
+        return <Badge>Unknown</Badge>;
     }
-  }
-
-  const filteredCranes = cranes.filter(
-    (crane) =>
-      crane.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      crane.id.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      crane.location.toLowerCase().includes(searchQuery.toLowerCase()),
-  )
-
-  const filteredRequests = workRequests.filter(
-    (request) =>
-      request.id.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      request.crane.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      request.operator.toLowerCase().includes(searchQuery.toLowerCase()),
-  )
-
-  const filteredOperators = operators.filter(
-    (operator) =>
-      operator.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      operator.role.toLowerCase().includes(searchQuery.toLowerCase()),
-  )
+  };
 
   return (
-    <div className="min-h-screen flex flex-col">
-      <header className="border-b bg-background">
-        <div className="container flex h-16 items-center justify-between py-4">
-          <div className="flex items-center gap-2">
-            <Crane className="h-6 w-6 text-primary" />
-            <h1 className="text-xl font-bold">Crane Management System</h1>
-          </div>
-          <div className="flex items-center gap-4">
-            <Button variant="ghost" size="icon">
-              <Bell className="h-5 w-5" />
-            </Button>
-            <Button variant="ghost" size="icon">
-              <Settings className="h-5 w-5" />
-            </Button>
-            <div className="flex items-center gap-2">
-              <Avatar>
-                <AvatarImage src="/placeholder.svg?height=40&width=40" alt="User" />
-                <AvatarFallback>MG</AvatarFallback>
-              </Avatar>
-              <div className="hidden md:block">
-                <p className="text-sm font-medium">Maria Garcia</p>
-                <p className="text-xs text-muted-foreground">Site Manager</p>
-              </div>
-            </div>
-          </div>
+    <div className="space-y-6">
+      <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
+        <h1 className="text-2xl font-bold tracking-tight">Dashboard</h1>
+        <div className="flex items-center gap-2">
+          <Button>
+            <Plus className="mr-2 h-4 w-4" />
+            New Job
+          </Button>
         </div>
-      </header>
-      <div className="flex flex-1">
-        <aside className="w-16 md:w-64 border-r bg-muted/40">
-          <nav className="flex flex-col p-2 md:p-4 gap-2">
-            <Button
-              variant={activeTab === "cranes" ? "default" : "ghost"}
-              className="justify-start"
-              onClick={() => setActiveTab("cranes")}
-            >
-              <Crane className="h-5 w-5 md:mr-2" />
-              <span className="hidden md:inline">Crane Management</span>
-            </Button>
-            <Button
-              variant={activeTab === "operators" ? "default" : "ghost"}
-              className="justify-start"
-              onClick={() => setActiveTab("operators")}
-            >
-              <Users className="h-5 w-5 md:mr-2" />
-              <span className="hidden md:inline">Operators</span>
-            </Button>
-            <Button
-              variant={activeTab === "history" ? "default" : "ghost"}
-              className="justify-start"
-              onClick={() => setActiveTab("history")}
-            >
-              <History className="h-5 w-5 md:mr-2" />
-              <span className="hidden md:inline">History</span>
-            </Button>
-            <div className="flex-1"></div>
-          </nav>
-        </aside>
-        <main className="flex-1 p-4 md:p-6 overflow-auto">
-          <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-4">
-            <TabsList className="grid w-full grid-cols-3">
-              <TabsTrigger value="cranes">Cranes</TabsTrigger>
-              <TabsTrigger value="operators">Operators</TabsTrigger>
-              <TabsTrigger value="history">History</TabsTrigger>
-            </TabsList>
+      </div>
 
-            <TabsContent value="cranes">
-              <div className="flex justify-between items-center mb-6">
-                <h2 className="text-2xl font-bold">Crane Management</h2>
-                <div className="flex gap-2">
-                  <div className="relative">
-                    <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-                    <Input
-                      type="search"
-                      placeholder="Search cranes..."
-                      className="pl-8 w-[250px]"
-                      value={searchQuery}
-                      onChange={(e) => setSearchQuery(e.target.value)}
-                    />
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+        {[
+          {
+            title: "Total Cranes",
+            value: "24",
+            description: "2 need maintenance",
+            icon: <Crane className="h-5 w-5 text-blue-600" />,
+            trend: "+2 from last month",
+            trendUp: true,
+          },
+          {
+            title: "Active Jobs",
+            value: "12",
+            description: "3 due today",
+            icon: <FileText className="h-5 w-5 text-green-600" />,
+            trend: "+5 from last month",
+            trendUp: true,
+          },
+          {
+            title: "Pending Maintenance",
+            value: "5",
+            description: "2 high priority",
+            icon: <Tool className="h-5 w-5 text-amber-600" />,
+            trend: "-2 from last month",
+            trendUp: false,
+          },
+          {
+            title: "Active Operators",
+            value: "18",
+            description: "3 on leave",
+            icon: <Users className="h-5 w-5 text-purple-600" />,
+            trend: "Same as last month",
+            trendUp: null,
+          },
+        ].map((item, index) => (
+          <Card key={index}>
+            <CardHeader className="flex flex-row items-center justify-between pb-2">
+              <CardTitle className="text-sm font-medium text-muted-foreground">
+                {item.title}
+              </CardTitle>
+              <div className="rounded-full bg-muted p-2">{item.icon}</div>
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">{item.value}</div>
+              <p className="text-xs text-muted-foreground">
+                {item.description}
+              </p>
+              <div className="mt-2 flex items-center text-xs">
+                {item.trendUp !== null && (
+                  <div
+                    className={`mr-1 ${
+                      item.trendUp ? "text-green-500" : "text-red-500"
+                    }`}
+                  >
+                    {item.trendUp ? (
+                      <TrendingUp className="h-3 w-3" />
+                    ) : (
+                      <TrendingUp className="h-3 w-3 rotate-180" />
+                    )}
                   </div>
-                  <Button>
-                    <Plus className="h-4 w-4 mr-2" />
-                    Add Crane
+                )}
+                <span className="text-muted-foreground">{item.trend}</span>
+              </div>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+
+      <div className="w-full">
+        <Card className="w-full">
+          <CardHeader className="flex items-center justify-start">
+            <CardTitle className="text-left w-full">
+              Cranes Status Overview
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="p-4">
+            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+              {cranes.map((crane) => (
+                <Card key={crane.id}>
+                  <CardHeader className="pb-2">
+                    <div className="flex justify-between items-start">
+                      <CardTitle className="text-lg">{crane.name}</CardTitle>
+                      {getStatusBadge(crane.status)}
+                    </div>
+                    <CardDescription>ID: {crane.id}</CardDescription>
+                  </CardHeader>
+                  <CardContent className="pb-2">
+                    <div className="text-sm space-y-1">
+                      <div className="flex justify-between">
+                        <span className="text-muted-foreground">Location:</span>
+                        <span>{crane.location}</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-muted-foreground">
+                          Last Maintenance:
+                        </span>
+                        <span>{crane.lastMaintenance}</span>
+                      </div>
+                    </div>
+                  </CardContent>
+                  <CardFooter>
+                    <Button variant="outline" size="sm" className="w-full">
+                      View Details
+                    </Button>
+                  </CardFooter>
+                </Card>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
+        <Card className="lg:col-span-4">
+          <CardHeader>
+            <CardTitle>Recent Activities</CardTitle>
+            <CardDescription>
+              Overview of recent activities in the system
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-4">
+              {[
+                {
+                  title: "Crane HC-123 Maintenance Completed",
+                  description: "Regular maintenance completed by John Doe",
+                  time: "2 hours ago",
+                  icon: <CheckCircle2 className="h-5 w-5 text-green-500" />,
+                },
+                {
+                  title: "New Job Assignment",
+                  description:
+                    "Construction site at 123 Main St assigned to Team A",
+                  time: "4 hours ago",
+                  icon: <FileText className="h-5 w-5 text-blue-500" />,
+                },
+                {
+                  title: "Crane TC-456 Startup",
+                  description: "Crane started by Sarah Johnson",
+                  time: "Yesterday, 4:30 PM",
+                  icon: <Crane className="h-5 w-5 text-amber-500" />,
+                },
+                {
+                  title: "Maintenance Alert",
+                  description: "Crane HC-789 requires immediate maintenance",
+                  time: "Yesterday, 2:15 PM",
+                  icon: <AlertCircle className="h-5 w-5 text-red-500" />,
+                },
+                {
+                  title: "Equipment Delivery",
+                  description: "New parts delivered by Supplier XYZ",
+                  time: "2 days ago",
+                  icon: <Truck className="h-5 w-5 text-purple-500" />,
+                },
+              ].map((activity, index) => (
+                <div key={index} className="flex items-start space-x-4">
+                  <div className="rounded-full bg-muted p-2">
+                    {activity.icon}
+                  </div>
+                  <div className="flex-1 space-y-1">
+                    <p className="text-sm font-medium leading-none">
+                      {activity.title}
+                    </p>
+                    <p className="text-sm text-muted-foreground">
+                      {activity.description}
+                    </p>
+                    <p className="text-xs text-muted-foreground">
+                      {activity.time}
+                    </p>
+                  </div>
+                  <Button variant="ghost" size="icon">
+                    <ArrowRight className="h-4 w-4" />
                   </Button>
                 </div>
-              </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
 
-              <Card>
-                <CardContent className="p-0">
-                  <Table>
-                    <TableHeader>
-                      <TableRow>
-                        <TableHead>ID</TableHead>
-                        <TableHead>Name</TableHead>
-                        <TableHead>Location</TableHead>
-                        <TableHead>Last Maintenance</TableHead>
-                        <TableHead>Status</TableHead>
-                        <TableHead className="text-right">Actions</TableHead>
-                      </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                      {filteredCranes.map((crane) => (
-                        <TableRow key={crane.id}>
-                          <TableCell className="font-medium">{crane.id}</TableCell>
-                          <TableCell>{crane.name}</TableCell>
-                          <TableCell>
-                            <div className="flex items-center gap-1">
-                              <MapPin className="h-3 w-3 text-muted-foreground" />
-                              {crane.location}
-                            </div>
-                          </TableCell>
-                          <TableCell>{crane.lastMaintenance}</TableCell>
-                          <TableCell>{getStatusBadge(crane.status)}</TableCell>
-                          <TableCell className="text-right">
-                            <div className="flex justify-end gap-2">
-                              <Button variant="ghost" size="sm">
-                                Edit
-                              </Button>
-                              <Button variant="ghost" size="sm">
-                                View
-                              </Button>
-                            </div>
-                          </TableCell>
-                        </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
-                </CardContent>
-              </Card>
-            </TabsContent>
-
-            <TabsContent value="operators">
-              <div className="flex justify-between items-center mb-6">
-                <h2 className="text-2xl font-bold">Operator Management</h2>
-                <div className="flex gap-2">
-                  <div className="relative">
-                    <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-                    <Input
-                      type="search"
-                      placeholder="Search operators..."
-                      className="pl-8 w-[250px]"
-                      value={searchQuery}
-                      onChange={(e) => setSearchQuery(e.target.value)}
-                    />
+        <Card className="lg:col-span-3">
+          <CardHeader>
+            <CardTitle>Upcoming Maintenance</CardTitle>
+            <CardDescription>
+              Scheduled maintenance for the next 7 days
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-4">
+              {[
+                {
+                  crane: "HC-123",
+                  type: "Regular Inspection",
+                  date: "Today, 2:00 PM",
+                  status: "scheduled",
+                  assignee: "John Doe",
+                },
+                {
+                  crane: "TC-456",
+                  type: "Oil Change",
+                  date: "Tomorrow, 10:00 AM",
+                  status: "scheduled",
+                  assignee: "Sarah Johnson",
+                },
+                {
+                  crane: "HC-789",
+                  type: "Emergency Repair",
+                  date: "Today, 4:30 PM",
+                  status: "urgent",
+                  assignee: "Mike Smith",
+                },
+                {
+                  crane: "TC-234",
+                  type: "Annual Certification",
+                  date: "Friday, 9:00 AM",
+                  status: "scheduled",
+                  assignee: "Emily Davis",
+                },
+              ].map((maintenance, index) => (
+                <div key={index} className="flex items-center justify-between">
+                  <div className="flex items-center space-x-4">
+                    <div
+                      className={`rounded-full p-1 ${
+                        maintenance.status === "urgent"
+                          ? "bg-red-100 text-red-600"
+                          : "bg-blue-100 text-blue-600"
+                      }`}
+                    >
+                      {maintenance.status === "urgent" ? (
+                        <AlertCircle className="h-4 w-4" />
+                      ) : (
+                        <Clock className="h-4 w-4" />
+                      )}
+                    </div>
+                    <div>
+                      <p className="text-sm font-medium">
+                        {maintenance.crane}: {maintenance.type}
+                      </p>
+                      <div className="flex items-center text-xs text-muted-foreground">
+                        <span>{maintenance.date}</span>
+                        <span className="mx-1">•</span>
+                        <span>{maintenance.assignee}</span>
+                      </div>
+                    </div>
                   </div>
-                  <Button>
-                    <Plus className="h-4 w-4 mr-2" />
-                    Add Operator
+                  <Button variant="ghost" size="sm">
+                    Details
                   </Button>
                 </div>
-              </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+      </div>
 
-              <Card>
-                <CardContent className="p-0">
-                  <Table>
-                    <TableHeader>
-                      <TableRow>
-                        <TableHead>ID</TableHead>
-                        <TableHead>Name</TableHead>
-                        <TableHead>Role</TableHead>
-                        <TableHead>Certification Expiry</TableHead>
-                        <TableHead>Status</TableHead>
-                        <TableHead className="text-right">Actions</TableHead>
-                      </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                      {filteredOperators.map((operator) => (
-                        <TableRow key={operator.id}>
-                          <TableCell className="font-medium">{operator.id}</TableCell>
-                          <TableCell>
-                            <div className="flex items-center gap-2">
-                              <Avatar className="h-8 w-8">
-                                <AvatarFallback>
-                                  {operator.name
-                                    .split(" ")
-                                    .map((n) => n[0])
-                                    .join("")}
-                                </AvatarFallback>
-                              </Avatar>
-                              {operator.name}
-                            </div>
-                          </TableCell>
-                          <TableCell>{operator.role}</TableCell>
-                          <TableCell>{operator.certExpiry}</TableCell>
-                          <TableCell>{getStatusBadge(operator.status)}</TableCell>
-                          <TableCell className="text-right">
-                            <div className="flex justify-end gap-2">
-                              <Button variant="ghost" size="sm">
-                                Edit
-                              </Button>
-                              <Button variant="ghost" size="sm">
-                                View
-                              </Button>
-                            </div>
-                          </TableCell>
-                        </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
-                </CardContent>
-              </Card>
-            </TabsContent>
+      <div className="flex flex-col items-center justify-between w-full ">
+        <Card className="w-full ">
+          <CardHeader className="flex items-center justify-start">
+            <CardTitle className="text-left w-full">
+              Recent Work Requests
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="p-0">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>ID</TableHead>
+                  <TableHead>Crane</TableHead>
+                  <TableHead>Type</TableHead>
+                  <TableHead>Operator</TableHead>
+                  <TableHead>Date</TableHead>
+                  <TableHead>Status</TableHead>
+                  <TableHead className="text-right">Action</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {workRequests.slice(0, 5).map((request) => (
+                  <TableRow key={request.id}>
+                    <TableCell className="font-medium">{request.id}</TableCell>
+                    <TableCell>{request.crane}</TableCell>
+                    <TableCell>{request.type}</TableCell>
+                    <TableCell>{request.operator}</TableCell>
+                    <TableCell>{request.date}</TableCell>
+                    <TableCell>{getStatusBadge(request.status)}</TableCell>
+                    <TableCell className="text-right">
+                      <Button variant="ghost" size="sm">
+                        View
+                      </Button>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </CardContent>
+          <CardFooter className="flex justify-end p-4">
+            <Button variant="outline" size="sm">
+              View All Requests
+            </Button>
+          </CardFooter>
+        </Card>
+      </div>
 
-            <TabsContent value="history">
-              <div className="flex justify-between items-center mb-6">
-                <h2 className="text-2xl font-bold">Operation History</h2>
-                <div className="flex gap-2">
-                  <div className="relative">
-                    <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-                    <Input type="search" placeholder="Search history..." className="pl-8 w-[250px]" />
-                  </div>
-                  <Button variant="outline">Export Report</Button>
-                </div>
-              </div>
+      
 
-              <Tabs defaultValue="operations" className="mb-6">
-                <TabsList>
-                  <TabsTrigger value="operations">Operations</TabsTrigger>
-                  <TabsTrigger value="maintenance">Maintenance</TabsTrigger>
-                  <TabsTrigger value="incidents">Incidents</TabsTrigger>
-                </TabsList>
-                <TabsContent value="operations" className="mt-4">
-                  <Card>
-                    <CardContent className="p-6">
-                      <div className="text-center p-8">
-                        <History className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
-                        <h3 className="text-lg font-medium mb-2">Operation History</h3>
-                        <p className="text-muted-foreground mb-4">View detailed history of all crane operations</p>
-                        <Button>Generate Report</Button>
-                      </div>
-                    </CardContent>
-                  </Card>
-                </TabsContent>
-                <TabsContent value="maintenance" className="mt-4">
-                  <Card>
-                    <CardContent className="p-6">
-                      <div className="text-center p-8">
-                        <Tool className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
-                        <h3 className="text-lg font-medium mb-2">Maintenance History</h3>
-                        <p className="text-muted-foreground mb-4">
-                          View detailed history of all crane maintenance activities
-                        </p>
-                        <Button>Generate Report</Button>
-                      </div>
-                    </CardContent>
-                  </Card>
-                </TabsContent>
-                <TabsContent value="incidents" className="mt-4">
-                  <Card>
-                    <CardContent className="p-6">
-                      <div className="text-center p-8">
-                        <AlertTriangle className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
-                        <h3 className="text-lg font-medium mb-2">Incident Reports</h3>
-                        <p className="text-muted-foreground mb-4">
-                          View history of all reported incidents and safety issues
-                        </p>
-                        <Button>Generate Report</Button>
-                      </div>
-                    </CardContent>
-                  </Card>
-                </TabsContent>
-              </Tabs>
-            </TabsContent>
-          </Tabs>
-        </main>
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+        <Alert className="bg-amber-50 text-amber-800 border-amber-200">
+          <AlertCircle className="h-4 w-4" />
+          <AlertTitle>Maintenance Required</AlertTitle>
+          <AlertDescription>
+            2 cranes require immediate maintenance attention.
+            <Button variant="link" className="h-auto p-0 text-amber-800">
+              View details
+            </Button>
+          </AlertDescription>
+        </Alert>
+
+        <Alert className="bg-blue-50 text-blue-800 border-blue-200">
+          <Clock className="h-4 w-4" />
+          <AlertTitle>Upcoming Certification</AlertTitle>
+          <AlertDescription>
+            3 operators need to renew their certifications this month.
+            <Button variant="link" className="h-auto p-0 text-blue-800">
+              View details
+            </Button>
+          </AlertDescription>
+        </Alert>
+
+        <Alert className="bg-green-50 text-green-800 border-green-200">
+          <CheckCircle2 className="h-4 w-4" />
+          <AlertTitle>Equipment Delivery</AlertTitle>
+          <AlertDescription>
+            New parts have been delivered and are ready for inventory.
+            <Button variant="link" className="h-auto p-0 text-green-800">
+              View details
+            </Button>
+          </AlertDescription>
+        </Alert>
       </div>
     </div>
-  )
+  );
 }

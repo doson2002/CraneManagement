@@ -4,7 +4,7 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 import {
   BarChart3,
-  ConeIcon as Crane,
+  ConeIcon,
   Wrench,
   PlayCircle,
   ClipboardCheck,
@@ -14,6 +14,7 @@ import {
   Truck,
   Bell,
   LogOut,
+  ClipboardList,
 } from "lucide-react";
 import {
   Sidebar,
@@ -25,6 +26,7 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import NavItem from "@/components/nav-item";
+import { NavLink } from "@/components/nav";
 
 interface SidebarNavProps {
   role: "operator" | "manager" | "admin";
@@ -33,7 +35,7 @@ interface SidebarNavProps {
 export function SidebarNav({ role }: SidebarNavProps) {
   const pathname = usePathname();
 
-  const operatorLinks = [
+  const operatorLinks: NavLink[] = [
     { href: "/operator/dashboard", label: "Dashboard", icon: BarChart3 },
     { href: "/operator/maintenance", label: "Maintenance", icon: Wrench },
     { href: "/operator/startup", label: "Crane Startup", icon: PlayCircle },
@@ -44,27 +46,23 @@ export function SidebarNav({ role }: SidebarNavProps) {
     },
   ];
 
-  const managerLinks = [
+  const managerLinks: NavLink[] = [
     { href: "/manager/dashboard", label: "Dashboard", icon: BarChart3 },
-    { href: "/dashboard/cranes", label: "Cranes", icon: Crane },
+    { href: "/manager/cranes", label: "Cranes", icon: ConeIcon },
     { href: "/dashboard/maintenance", label: "Maintenance", icon: Wrench },
-    {
-      href: "/dashboard/crane-startup",
-      label: "Crane Startup",
-      icon: PlayCircle,
-    },
     {
       href: "/dashboard/expertise-test",
       label: "Expertise Test",
       icon: ClipboardCheck,
     },
-    { href: "/dashboard/jobs", label: "Jobs", icon: ClipboardCheck },
+    { href: "/manager/jobs", label: "Jobs", icon: ClipboardCheck },
+    { href: "/manager/workrequests", label: "Work Requests", icon: ClipboardList },
     { href: "/dashboard/equipment", label: "Equipment", icon: Package },
     { href: "/dashboard/suppliers", label: "Suppliers", icon: Truck },
     { href: "/dashboard/settings", label: "Settings", icon: Settings },
   ];
 
-  const adminLinks = [
+  const adminLinks: NavLink[] = [
     { href: "/admin/dashboard", label: "Dashboard", icon: BarChart3 },
     { href: "/admin/users", label: "User Management", icon: Users },
     {
@@ -97,7 +95,7 @@ export function SidebarNav({ role }: SidebarNavProps) {
       <SidebarHeader className="border-b px-6 h-16 flex justify-center items-center">
         <div className="flex items-center gap-2">
           <Link href={logoLink} className="flex items-center gap-2">
-            <Crane className="h-6 w-6 text-primary" />
+            <ConeIcon className="h-6 w-6 text-primary" />
             <span className="text-xl font-bold">CraneMS</span>
           </Link>
         </div>
