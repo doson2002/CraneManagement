@@ -63,7 +63,7 @@ export default function SupplierTable({ suppliers }: SupplierTableProps) {
                 <div className="col-span-2">
                   <div className="flex items-center gap-2">
                     <Button variant="outline" size="sm">
-                      <Link href={`/manager/suppliers/${supplier.id}`}>
+                      <Link href={`/manager/suppliers`}>
                         View
                       </Link>
                     </Button>

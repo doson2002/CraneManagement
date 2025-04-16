@@ -260,6 +260,7 @@ export default function SuppliersPage() {
           <TabsTrigger value="equipment">Equipment</TabsTrigger>
           <TabsTrigger value="parts">Parts</TabsTrigger>
           <TabsTrigger value="service">Services</TabsTrigger>
+          
         </TabsList>
 
         <TabsContent value="all" className="mt-6">

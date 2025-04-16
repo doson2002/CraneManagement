@@ -266,11 +266,12 @@ export default function SuppliersPage() {
       </div>
 
       <Tabs defaultValue="all" className="w-full">
-        <TabsList className="w-full grid  grid-cols-4">
+        <TabsList className="w-full grid  grid-cols-5">
           <TabsTrigger value="all">All Suppliers</TabsTrigger>
           <TabsTrigger value="equipment">Equipment</TabsTrigger>
           <TabsTrigger value="parts">Parts</TabsTrigger>
           <TabsTrigger value="service">Services</TabsTrigger>
+          <TabsTrigger value="certification">Certifications</TabsTrigger>
         </TabsList>
 
         <TabsContent value="all" className="mt-6">
@@ -284,6 +285,9 @@ export default function SuppliersPage() {
         </TabsContent>
         <TabsContent value="service" className="mt-6">
           <SupplierTable suppliers={suppliers.filter((s) => s.type === "Service Provider")} />
+        </TabsContent>
+        <TabsContent value="certification" className="mt-6">
+          <SupplierTable suppliers={suppliers.filter((s) => s.type === "Certification Provider")} />
         </TabsContent>
       </Tabs>
     </div>
