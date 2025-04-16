@@ -49,7 +49,7 @@ export function SidebarNav({ role }: SidebarNavProps) {
   const managerLinks: NavLink[] = [
     { href: "/manager/dashboard", label: "Dashboard", icon: BarChart3 },
     { href: "/manager/cranes", label: "Cranes", icon: ConeIcon },
-    { href: "/dashboard/maintenance", label: "Maintenance", icon: Wrench },
+    { href: "/manager/maintenance", label: "Maintenance", icon: Wrench },
     {
       href: "/dashboard/expertise-test",
       label: "Expertise Test",
