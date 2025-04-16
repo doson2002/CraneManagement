@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import TaskTabContent from "@/app/manager/maintenance/components/task-tab-content";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -13,7 +13,7 @@ import {
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { TabsContent } from "@radix-ui/react-tabs";
 import { Download, Filter, Plus, Search } from "lucide-react";
-import { useState } from "react";
+import Link from "next/link";
 
 export interface MaintenanceTask {
   id: string;
@@ -143,10 +143,12 @@ export default function ManageMaintenance() {
             Maintenance
           </CardTitle>
           <div className="flex items-center gap-2">
-            <Button>
-              <Plus className="mr-2 h-4 w-4" />
-              New Maintenance Task
-            </Button>
+            <Link href="/manager/maintenance/create">
+              <Button>
+                <Plus className="mr-2 h-4 w-4" />
+                New Maintenance Task
+              </Button>
+            </Link>
             <Button variant="outline">
               <Download className="mr-2 h-4 w-4" />
               Export
@@ -201,16 +203,28 @@ export default function ManageMaintenance() {
             <TabsTrigger value="all">All Tasks</TabsTrigger>
           </TabsList>
           <TabsContent value="upcoming" className="py-4">
-            <TaskTabContent tasks={maintenanceTasks.filter(task => task.status === "scheduled")}/>
+            <TaskTabContent
+              tasks={maintenanceTasks.filter(
+                (task) => task.status === "scheduled"
+              )}
+            />
           </TabsContent>
           <TabsContent value="in-progress" className="py-4">
-            <TaskTabContent tasks={maintenanceTasks.filter(task => task.status === "in-progress")}/>
+            <TaskTabContent
+              tasks={maintenanceTasks.filter(
+                (task) => task.status === "in-progress"
+              )}
+            />
           </TabsContent>
           <TabsContent value="completed" className="py-4">
-            <TaskTabContent tasks={maintenanceTasks.filter(task => task.status === "completed")}/>
+            <TaskTabContent
+              tasks={maintenanceTasks.filter(
+                (task) => task.status === "completed"
+              )}
+            />
           </TabsContent>
           <TabsContent value="all" className="py-4">
-            <TaskTabContent tasks={maintenanceTasks}/>
+            <TaskTabContent tasks={maintenanceTasks} />
           </TabsContent>
         </Tabs>
       </CardContent>
