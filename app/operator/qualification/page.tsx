@@ -133,7 +133,7 @@ export default function QualificationTest() {
   const passed = score >= 70; // Pass threshold is 70%
 
   return (
-    <div className="min-h-screen flex flex-col w-full">
+    <div className="min-h-fit flex flex-col w-full">
       <div className="container py-4">
         <Link
           href="/login"
@@ -144,7 +144,7 @@ export default function QualificationTest() {
         </Link>
       </div>
       <div className="flex-1 flex items-center justify-center p-4">
-        <Card className="w-full max-w-3xl">
+        <Card className="w-full max-w-7xl">
           <CardHeader>
             <CardTitle className="text-2xl">
               Professional Qualification Test

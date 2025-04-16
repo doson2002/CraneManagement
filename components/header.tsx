@@ -38,14 +38,11 @@ export function Header({ userName, role, notificationCount = 0 }: HeaderProps) {
   return (
     <header className="sticky top-0 z-10 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6">
       <div className="flex flex-1 items-center justify-between h-full">
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 opacity-0">
           <Crane className="h-10 w-10 text-primary" />
           <Button variant="logo" size="logo" className="hover:bg-none" onClick={onClickLogo}>
             <span className="text-xl font-bold text-black">CraneMS</span>
           </Button>
-        </div>
-        <div className="flex items-center gap-4 h-full">
-          <HeaderNav role={role} />
         </div>
         <div className="flex items-center gap-4">
           <DropdownMenu>

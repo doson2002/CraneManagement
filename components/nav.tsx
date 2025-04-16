@@ -1,7 +1,7 @@
 import NavItem from "@/components/nav-item";
 import {
   BarChart3,
-  ConeIcon as Crane,
+  ConeIcon,
   Wrench,
   PlayCircle,
   ClipboardCheck,
@@ -12,6 +12,7 @@ import {
   Bell,
   ClipboardList,
 } from "lucide-react";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 export interface NavLink {
@@ -39,7 +40,7 @@ export default function HeaderNav({ role }: HeaderNavProps) {
 
   const managerLinks: NavLink[] = [
     { href: "/manager", label: "Dashboard", icon: BarChart3 },
-    { href: "/manager/cranes", label: "Cranes", icon: Crane },
+    { href: "/manager/cranes", label: "Cranes", icon: ConeIcon },
     { href: "/dashboard/maintenance", label: "Maintenance", icon: Wrench },
     {
       href: "/dashboard/expertise-test",
@@ -73,22 +74,21 @@ export default function HeaderNav({ role }: HeaderNavProps) {
       : role === "manager"
       ? managerLinks
       : adminLinks;
-
   return (
     <div className="flex items-center h-full">
       <div className="flex items-center gap-4 h-full">
         {links.map((link) => {
           const Icon = link.icon;
           return (
-            <a
+            <Link
               key={link.href}
               href={link.href}
               className={`flex items-center gap-2 p-2 h-full w-fit ${
-                pathname === link.href ? "" : ""
+                pathname.includes(link.href) ? "" : ""
               } nav-item relative`}
             >
               <NavItem link={link} width={5} height={5} color="text-primary" />
-            </a>
+            </Link>
           );
         })}
       </div>
