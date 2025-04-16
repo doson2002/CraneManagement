@@ -248,7 +248,7 @@ export default function SuppliersPage() {
       </div>
 
       <Tabs defaultValue="all" className="w-full">
-        <TabsList className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5">
+        <TabsList className="w-full h-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5">
           <TabsTrigger value="all">All Suppliers</TabsTrigger>
           <TabsTrigger value="equipment">Equipment</TabsTrigger>
           <TabsTrigger value="parts">Parts</TabsTrigger>

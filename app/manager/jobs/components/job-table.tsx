@@ -63,7 +63,7 @@ export default function JobTable({ jobs }: JobTableProps) {
               Filter
             </Button>
             <Select>
-              <SelectTrigger className="w-[180px]">
+              <SelectTrigger>
                 <SelectValue placeholder="Status" />
               </SelectTrigger>
               <SelectContent>

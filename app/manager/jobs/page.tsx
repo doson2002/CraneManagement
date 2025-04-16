@@ -110,7 +110,7 @@ export default function JobsPage() {
 
   return (
     <div className="p-2 space-y-6">
-      <Card className="w-full p-6 space-y-6">
+      <Card className="w-full p-0 lg:p-6 space-y-6">
         <CardHeader className="flex flex-row justify-between items-center ">
           <h1 className="text-2xl font-bold">Job Management</h1>
           <Dialog open={isAddJobOpen} onOpenChange={setIsAddJobOpen}>
