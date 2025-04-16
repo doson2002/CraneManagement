@@ -2,10 +2,31 @@
 
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
+import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
-import { CheckCircle2, Download, Plus, XCircle } from "lucide-react"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import {
+  Building,
+  CheckCircle2,
+  Download,
+  Filter,
+  Mail,
+  MoreHorizontal,
+  Phone,
+  Plus,
+  Search,
+  XCircle,
+} from "lucide-react"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Badge } from "@/components/ui/badge"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 import {
   Dialog,
   DialogContent,
@@ -17,10 +38,21 @@ import {
 } from "@/components/ui/dialog"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
-
-export default function AdminSuppliersPage() {
+import Link from "next/link"
+import SupplierTable from "@/app/manager/suppliers/components/suppliers-table"
+export interface Supplier {
+  id: string
+  name: string
+  type: string
+  contact: string
+  email: string
+  phone: string
+  address: string
+  status: string
+  products: string[]
+}
+export default function SuppliersPage() {
   const [isAddSupplierOpen, setIsAddSupplierOpen] = useState(false)
-  const [searchQuery, setSearchQuery] = useState("")
 
   const suppliers = [
     {
@@ -110,18 +142,10 @@ export default function AdminSuppliersPage() {
     }
   }
 
-  const filteredSuppliers = suppliers.filter(
-    (supplier) =>
-      supplier.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      supplier.id.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      supplier.type.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      supplier.contact.toLowerCase().includes(searchQuery.toLowerCase()),
-  )
-
   return (
     <div className="space-y-6">
       <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
-        <h1 className="text-2xl font-bold tracking-tight">Supplier Management</h1>
+        <h1 className="text-2xl font-bold tracking-tight">Suppliers</h1>
         <div className="flex items-center gap-2">
           <Dialog open={isAddSupplierOpen} onOpenChange={setIsAddSupplierOpen}>
             <DialogTrigger asChild>
@@ -206,5 +230,54 @@ export default function AdminSuppliersPage() {
         </div>
       </div>
 
+      <div className="flex flex-col gap-4 md:flex-row md:items-center">
+        <div className="relative flex-1">
+          <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+          <Input type="search" placeholder="Search suppliers..." className="pl-8" />
+        </div>
+        <div className="flex items-center gap-2">
+          <Button variant="outline" size="sm" className="h-9">
+            <Filter className="mr-2 h-4 w-4" />
+            Filter
+          </Button>
+          <Select defaultValue="all">
+            <SelectTrigger className="h-9 w-[180px]">
+              <SelectValue placeholder="Status" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">All Statuses</SelectItem>
+              <SelectItem value="active">Active</SelectItem>
+              <SelectItem value="inactive">Inactive</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+      </div>
 
-\
+      <Tabs defaultValue="all" className="w-full">
+        <TabsList className="w-full h-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5">
+          <TabsTrigger value="all">All Suppliers</TabsTrigger>
+          <TabsTrigger value="equipment">Equipment</TabsTrigger>
+          <TabsTrigger value="parts">Parts</TabsTrigger>
+          <TabsTrigger value="service">Services</TabsTrigger>
+          <TabsTrigger value="certification">Certifications</TabsTrigger>
+        </TabsList>
+
+        <TabsContent value="all" className="mt-6">
+          <SupplierTable suppliers={suppliers} />
+        </TabsContent>
+        <TabsContent value="equipment" className="mt-6">
+          <SupplierTable suppliers={suppliers.filter((s) => s.type === "Equipment Supplier")} />
+        </TabsContent>
+        <TabsContent value="parts" className="mt-6">
+          <SupplierTable suppliers={suppliers.filter((s) => s.type === "Parts Supplier")} />
+        </TabsContent>
+        <TabsContent value="service" className="mt-6">
+          <SupplierTable suppliers={suppliers.filter((s) => s.type === "Service Provider")} />
+        </TabsContent>
+        <TabsContent value="certification" className="mt-6">
+          <SupplierTable suppliers={suppliers.filter((s) => s.type === "Certification Provider")} />
+        </TabsContent>
+      </Tabs>
+    </div>
+  )
+}

@@ -1,13 +1,36 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { CheckCircle2, Download, Filter, MoreHorizontal, Plus, Search, Settings, Truck, XCircle } from "lucide-react"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Badge } from "@/components/ui/badge"
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import {
+  CheckCircle2,
+  Download,
+  Filter,
+  MoreHorizontal,
+  Plus,
+  Search,
+  Settings,
+  Truck,
+  XCircle,
+} from "lucide-react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Badge } from "@/components/ui/badge";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -15,7 +38,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+} from "@/components/ui/dropdown-menu";
 import {
   Dialog,
   DialogContent,
@@ -24,14 +47,36 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog"
-import { Label } from "@/components/ui/label"
-import { Textarea } from "@/components/ui/textarea"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
+} from "@/components/ui/dialog";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import EquipmentDialogContent from "@/app/admin/equipment/components/dialog-content";
+import EquipmentTable from "@/app/admin/equipment/components/equipment-table";
+
+export interface Equipment{
+  id: string;
+  name: string;
+  type: string;
+  supplier: string;
+  status: string;
+  lastMaintenance: string;
+  nextMaintenance: string;
+  location: string;
+  purchaseDate: string;
+  warrantyExpiry: string;
+}
 
 export default function AdminEquipmentPage() {
-  const [isAddEquipmentOpen, setIsAddEquipmentOpen] = useState(false)
-  const [searchQuery, setSearchQuery] = useState("")
+  const [isAddEquipmentOpen, setIsAddEquipmentOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
 
   const equipment = [
     {
@@ -106,47 +151,27 @@ export default function AdminEquipmentPage() {
       purchaseDate: "2022-06-20",
       warrantyExpiry: "2025-06-20",
     },
-  ]
-
-  const getStatusBadge = (status: string) => {
-    switch (status) {
-      case "operational":
-        return (
-          <Badge className="bg-green-500">
-            <CheckCircle2 className="mr-1 h-3 w-3" /> Operational
-          </Badge>
-        )
-      case "maintenance":
-        return (
-          <Badge className="bg-amber-500">
-            <Settings className="mr-1 h-3 w-3" /> Under Maintenance
-          </Badge>
-        )
-      case "inactive":
-        return (
-          <Badge variant="outline" className="border-red-500 text-red-500">
-            <XCircle className="mr-1 h-3 w-3" /> Inactive
-          </Badge>
-        )
-      default:
-        return <Badge>Unknown</Badge>
-    }
-  }
+  ];
 
   const filteredEquipment = equipment.filter(
     (item) =>
       item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       item.id.toLowerCase().includes(searchQuery.toLowerCase()) ||
       item.type.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      item.supplier.toLowerCase().includes(searchQuery.toLowerCase()),
-  )
+      item.supplier.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   return (
     <div className="space-y-6">
       <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
-        <h1 className="text-2xl font-bold tracking-tight">Equipment Management</h1>
+        <h1 className="text-2xl font-bold tracking-tight">
+          Equipment Management
+        </h1>
         <div className="flex items-center gap-2">
-          <Dialog open={isAddEquipmentOpen} onOpenChange={setIsAddEquipmentOpen}>
+          <Dialog
+            open={isAddEquipmentOpen}
+            onOpenChange={setIsAddEquipmentOpen}
+          >
             <DialogTrigger asChild>
               <Button>
                 <Plus className="mr-2 h-4 w-4" />
@@ -154,84 +179,9 @@ export default function AdminEquipmentPage() {
               </Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[600px]">
-              <DialogHeader>
-                <DialogTitle>Add New Equipment</DialogTitle>
-                <DialogDescription>Add new equipment to the system</DialogDescription>
-              </DialogHeader>
-              <div className="grid gap-4 py-4">
-                <div className="grid grid-cols-4 items-center gap-4">
-                  <Label htmlFor="equipment-name" className="text-right">
-                    Name
-                  </Label>
-                  <Input id="equipment-name" placeholder="Enter equipment name" className="col-span-3" />
-                </div>
-                <div className="grid grid-cols-4 items-center gap-4">
-                  <Label htmlFor="equipment-type" className="text-right">
-                    Type
-                  </Label>
-                  <Select>
-                    <SelectTrigger id="equipment-type" className="col-span-3">
-                      <SelectValue placeholder="Select type" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="hydraulic">Hydraulic System</SelectItem>
-                      <SelectItem value="cable">Cable System</SelectItem>
-                      <SelectItem value="control">Control System</SelectItem>
-                      <SelectItem value="structural">Structural Component</SelectItem>
-                      <SelectItem value="mechanical">Mechanical Component</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-                <div className="grid grid-cols-4 items-center gap-4">
-                  <Label htmlFor="supplier" className="text-right">
-                    Supplier
-                  </Label>
-                  <Select>
-                    <SelectTrigger id="supplier" className="col-span-3">
-                      <SelectValue placeholder="Select supplier" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="cranetech">CraneTech Inc.</SelectItem>
-                      <SelectItem value="mobilelift">MobileLift Co.</SelectItem>
-                      <SelectItem value="industrial">IndustrialCranes Ltd.</SelectItem>
-                      <SelectItem value="heavyduty">HeavyDuty Systems</SelectItem>
-                      <SelectItem value="port">PortEquipment Inc.</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-                <div className="grid grid-cols-4 items-center gap-4">
-                  <Label htmlFor="location" className="text-right">
-                    Location
-                  </Label>
-                  <Input id="location" placeholder="Enter location" className="col-span-3" />
-                </div>
-                <div className="grid grid-cols-4 items-center gap-4">
-                  <Label htmlFor="purchase-date" className="text-right">
-                    Purchase Date
-                  </Label>
-                  <Input id="purchase-date" type="date" className="col-span-3" />
-                </div>
-                <div className="grid grid-cols-4 items-center gap-4">
-                  <Label htmlFor="warranty-expiry" className="text-right">
-                    Warranty Expiry
-                  </Label>
-                  <Input id="warranty-expiry" type="date" className="col-span-3" />
-                </div>
-                <div className="grid grid-cols-4 items-center gap-4">
-                  <Label htmlFor="description" className="text-right">
-                    Description
-                  </Label>
-                  <Textarea id="description" placeholder="Enter equipment description" className="col-span-3" />
-                </div>
-              </div>
-              <DialogFooter>
-                <Button variant="outline" onClick={() => setIsAddEquipmentOpen(false)}>
-                  Cancel
-                </Button>
-                <Button type="submit" onClick={() => setIsAddEquipmentOpen(false)}>
-                  Add Equipment
-                </Button>
-              </DialogFooter>
+              <EquipmentDialogContent
+                setIsAddEquipmentOpen={setIsAddEquipmentOpen}
+              />
             </DialogContent>
           </Dialog>
           <Button variant="outline">
@@ -285,7 +235,7 @@ export default function AdminEquipmentPage() {
       </div>
 
       <Tabs defaultValue="all" className="w-full">
-        <TabsList>
+        <TabsList className="w-full grid grid-cols-4">
           <TabsTrigger value="all">All Equipment</TabsTrigger>
           <TabsTrigger value="operational">Operational</TabsTrigger>
           <TabsTrigger value="maintenance">Under Maintenance</TabsTrigger>
@@ -293,64 +243,37 @@ export default function AdminEquipmentPage() {
         </TabsList>
 
         <TabsContent value="all" className="mt-6">
-          <Card>
-            <CardContent className="p-0">
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>ID</TableHead>
-                    <TableHead>Name</TableHead>
-                    <TableHead>Type</TableHead>
-                    <TableHead>Supplier</TableHead>
-                    <TableHead>Status</TableHead>
-                    <TableHead>Location</TableHead>
-                    <TableHead>Warranty Expiry</TableHead>
-                    <TableHead className="text-right">Actions</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {filteredEquipment.map((item) => (
-                    <TableRow key={item.id}>
-                      <TableCell className="font-medium">{item.id}</TableCell>
-                      <TableCell>{item.name}</TableCell>
-                      <TableCell>{item.type}</TableCell>
-                      <TableCell>{item.supplier}</TableCell>
-                      <TableCell>{getStatusBadge(item.status)}</TableCell>
-                      <TableCell>{item.location}</TableCell>
-                      <TableCell>{item.warrantyExpiry}</TableCell>
-                      <TableCell className="text-right">
-                        <DropdownMenu>
-                          <DropdownMenuTrigger asChild>
-                            <Button variant="ghost" size="icon" className="h-8 w-8">
-                              <MoreHorizontal className="h-4 w-4" />
-                            </Button>
-                          </DropdownMenuTrigger>
-                          <DropdownMenuContent align="end">
-                            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                            <DropdownMenuSeparator />
-                            <DropdownMenuItem>View Details</DropdownMenuItem>
-                            <DropdownMenuItem>Edit Equipment</DropdownMenuItem>
-                            <DropdownMenuItem>Schedule Maintenance</DropdownMenuItem>
-                            <DropdownMenuSeparator />
-                            <DropdownMenuItem className="text-red-600">Decommission</DropdownMenuItem>
-                          </DropdownMenuContent>
-                        </DropdownMenu>
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </CardContent>
-          </Card>
+          <EquipmentTable equipments={filteredEquipment} />
         </TabsContent>
-
-        {/* Similar content for other tabs */}
+        <TabsContent value="operational" className="mt-6">
+          <EquipmentTable
+            equipments={filteredEquipment.filter(
+              (item) => item.status === "operational"
+            )}
+          />
+        </TabsContent>
+        <TabsContent value="maintenance" className="mt-6">
+          <EquipmentTable
+            equipments={filteredEquipment.filter(
+              (item) => item.status === "maintenance"
+            )}
+          />
+        </TabsContent>
+        <TabsContent value="inactive" className="mt-6">
+          <EquipmentTable
+            equipments={filteredEquipment.filter(
+              (item) => item.status === "inactive"
+            )}
+          />
+        </TabsContent>
       </Tabs>
 
       <Card>
         <CardHeader>
           <CardTitle>Equipment Inventory Summary</CardTitle>
-          <CardDescription>Overview of equipment inventory status</CardDescription>
+          <CardDescription>
+            Overview of equipment inventory status
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <div className="grid gap-4 md:grid-cols-3">
@@ -361,9 +284,14 @@ export default function AdminEquipmentPage() {
                 </div>
                 <div>
                   <p className="text-2xl font-bold">
-                    {equipment.filter((item) => item.status === "operational").length}
+                    {
+                      equipment.filter((item) => item.status === "operational")
+                        .length
+                    }
                   </p>
-                  <p className="text-sm text-muted-foreground">Operational Equipment</p>
+                  <p className="text-sm text-muted-foreground">
+                    Operational Equipment
+                  </p>
                 </div>
               </div>
             </div>
@@ -374,9 +302,14 @@ export default function AdminEquipmentPage() {
                 </div>
                 <div>
                   <p className="text-2xl font-bold">
-                    {equipment.filter((item) => item.status === "maintenance").length}
+                    {
+                      equipment.filter((item) => item.status === "maintenance")
+                        .length
+                    }
                   </p>
-                  <p className="text-sm text-muted-foreground">Under Maintenance</p>
+                  <p className="text-sm text-muted-foreground">
+                    Under Maintenance
+                  </p>
                 </div>
               </div>
             </div>
@@ -386,8 +319,15 @@ export default function AdminEquipmentPage() {
                   <XCircle className="h-5 w-5 text-red-600" />
                 </div>
                 <div>
-                  <p className="text-2xl font-bold">{equipment.filter((item) => item.status === "inactive").length}</p>
-                  <p className="text-sm text-muted-foreground">Inactive Equipment</p>
+                  <p className="text-2xl font-bold">
+                    {
+                      equipment.filter((item) => item.status === "inactive")
+                        .length
+                    }
+                  </p>
+                  <p className="text-sm text-muted-foreground">
+                    Inactive Equipment
+                  </p>
                 </div>
               </div>
             </div>
@@ -401,5 +341,5 @@ export default function AdminEquipmentPage() {
         </CardFooter>
       </Card>
     </div>
-  )
+  );
 }

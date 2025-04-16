@@ -17,15 +17,21 @@ export default function LoginPage() {
   const router = useRouter()
   const [showPassword, setShowPassword] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [username, setUsername] = useState("")
+  const [password, setPassword] = useState("")
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault()
     setLoading(true)
-
+    // Simulate API call
+    let path = "/login";
+    if (username == "admin") path = "/admin/dashboard";
+    else if (username == "manager") path = "/manager";
+    else if (username == "operator") path = "/operator/dashboard";
     // Simulate login process
     setTimeout(() => {
       setLoading(false)
-      router.push("/dashboard")
+      router.push(path) 
     }, 1500)
   }
 
@@ -45,7 +51,7 @@ export default function LoginPage() {
           <CardHeader className="space-y-1">
             <div className="flex items-center justify-between">
               <CardTitle className="text-2xl font-bold">Login</CardTitle>
-              <Image src="/placeholder.svg?height=40&width=40" alt="Logo" width={40} height={40} className="rounded" />
+              <Image src="/placeholder.svg?height=60&width=40" alt="Logo" width={40} height={60} className="rounded" />
             </div>
             <CardDescription>Enter your credentials to access your account</CardDescription>
           </CardHeader>
@@ -61,7 +67,14 @@ export default function LoginPage() {
                   <div className="space-y-2">
                     <Label htmlFor="username">Username</Label>
                     <div className="relative">
-                      <Input id="username" placeholder="Enter your username" className="pl-10" required />
+                      <Input 
+                        id="username" 
+                        placeholder="Enter your username" 
+                        className="pl-10" 
+                        required 
+                        value={username} 
+                        onChange={(e) => setUsername(e.target.value)}
+                      />
                       <User className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-500" />
                     </div>
                   </div>
@@ -79,6 +92,8 @@ export default function LoginPage() {
                         type={showPassword ? "text" : "password"}
                         placeholder="Enter your password"
                         className="pl-10"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
                         required
                       />
                       <Lock className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-500" />
@@ -119,20 +134,6 @@ export default function LoginPage() {
               </TabsContent>
             </Tabs>
           </CardContent>
-          <CardFooter className="flex flex-col space-y-4">
-            <div className="relative flex items-center w-full">
-              <div className="flex-grow border-t border-gray-300"></div>
-              <span className="mx-4 flex-shrink text-gray-400 text-sm">or</span>
-              <div className="flex-grow border-t border-gray-300"></div>
-            </div>
-
-            <div className="text-center text-sm">
-              Don&apos;t have an account?{" "}
-              <Link href="/register" className="font-medium text-blue-600 hover:underline">
-                Register
-              </Link>
-            </div>
-          </CardFooter>
         </Card>
       </div>
     </div>
