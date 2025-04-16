@@ -52,7 +52,7 @@ export default function Page() {
   ];
 
   return (
-    <Card className="w-full h-full">
+    <Card className="w-full h-fit">
       <CardHeader className="flex flex-row items-center justify-between space-x-2">
         <div className="flex flex-col gap-2">
           <CardTitle className="text-2xl font-bold">
@@ -63,13 +63,13 @@ export default function Page() {
           </CardDescription>
         </div>
         <div className="flex flex-row gap-2 w-fit">
-          <Link href="/admin/notification/send/email" className="w-full">
+          <Link href="/admin/notifications/send/email" className="w-full">
             <Button className="w-full flex items-center justify-between">
               <Plus className="h-4 w-4 mr-2" />
               Send Email Notification
             </Button>
           </Link>
-          <Link href="/admin/notification/send/system" className="w-full">
+          <Link href="/admin/notifications/send/system" className="w-full">
             <Button>
               <Plus className="h-4 w-4 mr-2" />
               Send System Notification

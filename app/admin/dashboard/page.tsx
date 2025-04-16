@@ -486,74 +486,9 @@ export default function AdminDashboard() {
               </div>
 
               <div className="grid gap-6 md:grid-cols-2">
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Send Email Notification</CardTitle>
-                    <CardDescription>Send email notifications to users</CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="space-y-4">
-                      <div className="space-y-2">
-                        <Label htmlFor="recipient-type">Recipient Type</Label>
-                        <select
-                          id="recipient-type"
-                          className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-                        >
-                          <option value="all">All Users</option>
-                          <option value="operators">Operators Only</option>
-                          <option value="managers">Managers Only</option>
-                          <option value="admins">Admins Only</option>
-                          <option value="custom">Custom Selection</option>
-                        </select>
-                      </div>
-                      <div className="space-y-2">
-                        <Label htmlFor="subject">Subject</Label>
-                        <Input id="subject" placeholder="Enter email subject" />
-                      </div>
-                      <div className="space-y-2">
-                        <Label htmlFor="message">Message</Label>
-                        <Textarea id="message" placeholder="Enter your message" className="min-h-[150px]" />
-                      </div>
-                    </div>
-                  </CardContent>
-                  <CardFooter>
-                    <Button className="w-full">Send Email</Button>
-                  </CardFooter>
-                </Card>
+                
 
-                <Card>
-                  <CardHeader>
-                    <CardTitle>System Notifications</CardTitle>
-                    <CardDescription>Send system-wide notifications</CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="space-y-4">
-                      <div className="space-y-2">
-                        <Label htmlFor="notification-type">Notification Type</Label>
-                        <select
-                          id="notification-type"
-                          className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-                        >
-                          <option value="info">Information</option>
-                          <option value="warning">Warning</option>
-                          <option value="alert">Alert</option>
-                          <option value="maintenance">Maintenance</option>
-                        </select>
-                      </div>
-                      <div className="space-y-2">
-                        <Label htmlFor="title">Title</Label>
-                        <Input id="title" placeholder="Enter notification title" />
-                      </div>
-                      <div className="space-y-2">
-                        <Label htmlFor="content">Content</Label>
-                        <Textarea id="content" placeholder="Enter notification content" className="min-h-[150px]" />
-                      </div>
-                    </div>
-                  </CardContent>
-                  <CardFooter>
-                    <Button className="w-full">Send Notification</Button>
-                  </CardFooter>
-                </Card>
+                
               </div>
 
               <h2 className="text-xl font-bold mt-6 mb-4">Recent Notifications</h2>
