@@ -51,7 +51,7 @@ export function SidebarNav({ role }: SidebarNavProps) {
     { href: "/manager/cranes", label: "Cranes", icon: ConeIcon },
     { href: "/manager/maintenance", label: "Maintenance", icon: Wrench },
     {
-      href: "/dashboard/expertise-test",
+      href: "/manager/expertise-test",
       label: "Expertise Test",
       icon: ClipboardCheck,
     },
