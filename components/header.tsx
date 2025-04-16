@@ -14,6 +14,7 @@ import {
 import { ConeIcon as Crane } from "lucide-react";
 import HeaderNav from "@/components/nav";
 import { useRouter } from "next/navigation";
+import { useSidebar } from "@/components/ui/sidebar";
 
 interface HeaderProps {
   userName: string;
@@ -23,16 +24,10 @@ interface HeaderProps {
 
 export function Header({ userName, role, notificationCount = 0 }: HeaderProps) {
   const router = useRouter();
+  const {open, openMobile, setOpen, setOpenMobile} = useSidebar();
   const onClickLogo = () => {
-    if (role === "manager") {
-      router.push("/manager");
-    } else if (role === "operator") {
-      router.push("/operator");
-    } else if (role === "admin") {
-      router.push("/admin");
-    } else {
-      router.push("/login");
-    }
+    setOpen(!open);
+    setOpenMobile(!openMobile);
   };
 
   return (

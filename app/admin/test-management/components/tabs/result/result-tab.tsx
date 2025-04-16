@@ -1,6 +1,20 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import { TabsContent } from "@/components/ui/tabs";
 import { Search } from "lucide-react";
 
@@ -58,24 +72,26 @@ export default function ResultTab() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="rounded-md border">
-            <div className="grid grid-cols-12 gap-2 bg-muted p-4 font-medium">
-              <div className="col-span-2">User</div>
-              <div className="col-span-3">Test</div>
-              <div className="col-span-2">Date</div>
-              <div className="col-span-1">Score</div>
-              <div className="col-span-1">Result</div>
-              <div className="col-span-2">Time Taken</div>
-              <div className="col-span-1">Actions</div>
-            </div>
-            <div className="divide-y">
+          <Table className="w-full">
+            <TableHeader>
+              <TableRow>
+                <TableHead>User</TableHead>
+                <TableHead>Test</TableHead>
+                <TableHead>Date</TableHead>
+                <TableHead>Score</TableHead>
+                <TableHead>Result</TableHead>
+                <TableHead>Time Taken</TableHead>
+                <TableHead>Actions</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
               {results.map((result, index) => (
-                <div key={index} className="grid grid-cols-12 gap-2 p-4">
-                  <div className="col-span-2 font-medium">{result.user}</div>
-                  <div className="col-span-3">{result.test}</div>
-                  <div className="col-span-2">{result.date}</div>
-                  <div className="col-span-1">{result.score}%</div>
-                  <div className="col-span-1">
+                <TableRow key={index}>
+                  <TableCell>{result.user}</TableCell>
+                  <TableCell>{result.test}</TableCell>
+                  <TableCell>{result.date}</TableCell>
+                  <TableCell>{result.score}%</TableCell>
+                  <TableCell>
                     {result.result === "pass" ? (
                       <Badge className="bg-green-500">Pass</Badge>
                     ) : (
@@ -86,17 +102,17 @@ export default function ResultTab() {
                         Fail
                       </Badge>
                     )}
-                  </div>
-                  <div className="col-span-2">{result.timeTaken}</div>
-                  <div className="col-span-1">
+                  </TableCell>
+                  <TableCell>{result.timeTaken}</TableCell>
+                  <TableCell>
                     <Button variant="ghost" size="icon" className="h-8 w-8">
                       <Search className="h-4 w-4" />
                     </Button>
-                  </div>
-                </div>
+                  </TableCell>
+                </TableRow>
               ))}
-            </div>
-          </div>
+            </TableBody>
+          </Table>
         </CardContent>
       </Card>
     </TabsContent>

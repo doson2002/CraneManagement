@@ -2,10 +2,33 @@ import StatusBadge from "@/app/admin/test-management/components/status-bade";
 import TestDialog from "@/app/admin/test-management/components/tabs/test/test-dialog";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import { TabsContent } from "@/components/ui/tabs";
-import { ClipboardList, Edit, FileText, MoreHorizontal, Search, Trash, Users } from "lucide-react";
+import {
+  ClipboardList,
+  Edit,
+  FileText,
+  MoreHorizontal,
+  Search,
+  Trash,
+  Users,
+} from "lucide-react";
 
 export default function TestTab() {
   const tests = [
@@ -73,20 +96,22 @@ export default function TestTab() {
           <TestDialog />
         </CardHeader>
         <CardContent className="p-4">
-          <div className="rounded-md border">
-            <div className="grid grid-cols-12 gap-2 bg-muted p-4 font-medium">
-              <div className="col-span-3">Test Name</div>
-              <div className="col-span-3">Description</div>
-              <div className="col-span-1">Questions</div>
-              <div className="col-span-1">Pass Score</div>
-              <div className="col-span-1">Status</div>
-              <div className="col-span-2">Last Updated</div>
-              <div className="col-span-1">Actions</div>
-            </div>
-            <div className="divide-y">
+          <Table className="w-full">
+            <TableHeader>
+              <TableRow>
+                <TableHead>Test Name</TableHead>
+                <TableHead>Description</TableHead>
+                <TableHead>Questions</TableHead>
+                <TableHead>Pass Score</TableHead>
+                <TableHead>Status</TableHead>
+                <TableHead>Last Updated</TableHead>
+                <TableHead>Actions</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
               {tests.map((test) => (
-                <div key={test.id} className="grid grid-cols-12 gap-2 p-4">
-                  <div className="col-span-3">
+                <TableRow key={test.id}>
+                  <TableCell>
                     <div className="flex items-center gap-2">
                       <FileText className="h-5 w-5 text-blue-500" />
                       <span className="font-medium">{test.name}</span>
@@ -94,23 +119,17 @@ export default function TestTab() {
                     <span className="text-xs text-muted-foreground">
                       {test.id}
                     </span>
-                  </div>
-                  <div className="col-span-3 flex items-center">
-                    <p className="line-clamp-2 text-sm">{test.description}</p>
-                  </div>
-                  <div className="col-span-1 flex items-center">
-                    {test.questions}
-                  </div>
-                  <div className="col-span-1 flex items-center">
-                    {test.passingScore}%
-                  </div>
-                  <div className="col-span-1 flex items-center">
+                  </TableCell>
+                  <TableCell>{test.description}</TableCell>
+                  <TableCell>{test.questions}</TableCell>
+                  <TableCell>{test.passingScore}%</TableCell>
+                  <TableCell>
                     <StatusBadge status={test.status} />
-                  </div>
-                  <div className="col-span-2 flex items-center text-sm text-muted-foreground">
+                  </TableCell>
+                  <TableCell className="text-sm text-muted-foreground">
                     {test.lastUpdated}
-                  </div>
-                  <div className="col-span-1 flex items-center">
+                  </TableCell>
+                  <TableCell >
                     <DropdownMenu>
                       <DropdownMenuTrigger asChild>
                         <Button variant="ghost" size="icon" className="h-8 w-8">
@@ -143,11 +162,11 @@ export default function TestTab() {
                         </DropdownMenuItem>
                       </DropdownMenuContent>
                     </DropdownMenu>
-                  </div>
-                </div>
+                  </TableCell>
+                </TableRow>
               ))}
-            </div>
-          </div>
+            </TableBody>
+          </Table>
         </CardContent>
       </Card>
     </TabsContent>

@@ -53,7 +53,7 @@ export default function Page() {
 
   return (
     <Card className="w-full h-fit">
-      <CardHeader className="flex flex-row items-center justify-between space-x-2">
+      <CardHeader className="flex flex-col items-center justify-between space-x-2 lg:flex-row">
         <div className="flex flex-col gap-2">
           <CardTitle className="text-2xl font-bold">
             Recent Notifications
@@ -62,7 +62,7 @@ export default function Page() {
             View and manage your notifications here.
           </CardDescription>
         </div>
-        <div className="flex flex-row gap-2 w-fit">
+        <div className="flex flex-col lg:flex-row gap-2 w-fit py-4">
           <Link href="/admin/notifications/send/email" className="w-full">
             <Button className="w-full flex items-center justify-between">
               <Plus className="h-4 w-4 mr-2" />

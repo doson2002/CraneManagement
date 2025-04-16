@@ -10,6 +10,14 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import { Building, Mail, MoreHorizontal, Phone } from "lucide-react";
 import Link from "next/link";
 
@@ -20,19 +28,21 @@ export default function SupplierTable({ suppliers }: SupplierTableProps) {
   return (
     <Card>
       <CardContent className="p-0">
-        <div className="rounded-md border">
-          <div className="grid grid-cols-12 gap-2 bg-muted p-4 font-medium">
-            <div className="col-span-3">Name</div>
-            <div className="col-span-2">Type</div>
-            <div className="col-span-2">Contact</div>
-            <div className="col-span-2">Email/Phone</div>
-            <div className="col-span-1">Status</div>
-            <div className="col-span-2">Actions</div>
-          </div>
-          <div className="divide-y">
+        <Table className="w-full">
+          <TableHeader>
+            <TableRow>
+              <TableHead>Name</TableHead>
+              <TableHead>Type</TableHead>
+              <TableHead>Contact</TableHead>
+              <TableHead>Email/Phone</TableHead>
+              <TableHead>Status</TableHead>
+              <TableHead>Actions</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
             {suppliers.map((supplier) => (
-              <div key={supplier.id} className="grid grid-cols-12 gap-2 p-4">
-                <div className="col-span-3">
+              <TableRow key={supplier.id} >
+                <TableCell>
                   <div className="flex items-center gap-2">
                     <Building className="h-5 w-5 text-muted-foreground" />
                     <div>
@@ -42,10 +52,10 @@ export default function SupplierTable({ suppliers }: SupplierTableProps) {
                       </div>
                     </div>
                   </div>
-                </div>
-                <div className="col-span-2">{supplier.type}</div>
-                <div className="col-span-2">{supplier.contact}</div>
-                <div className="col-span-2">
+                </TableCell>
+                <TableCell>{supplier.type}</TableCell>
+                <TableCell>{supplier.contact}</TableCell>
+                <TableCell>
                   <div className="flex flex-col text-sm">
                     <div className="flex items-center">
                       <Mail className="mr-1 h-3 w-3 text-muted-foreground" />
@@ -56,16 +66,14 @@ export default function SupplierTable({ suppliers }: SupplierTableProps) {
                       {supplier.phone}
                     </div>
                   </div>
-                </div>
-                <div className="col-span-1">
+                </TableCell>
+                <TableCell>
                   <StatusBadge status={supplier.status} />
-                </div>
-                <div className="col-span-2">
+                </TableCell>
+                <TableCell>
                   <div className="flex items-center gap-2">
                     <Button variant="outline" size="sm">
-                      <Link href={`/manager/suppliers`}>
-                        View
-                      </Link>
+                      <Link href={`/manager/suppliers`}>View</Link>
                     </Button>
                     <DropdownMenu>
                       <DropdownMenuTrigger asChild>
@@ -92,11 +100,11 @@ export default function SupplierTable({ suppliers }: SupplierTableProps) {
                       </DropdownMenuContent>
                     </DropdownMenu>
                   </div>
-                </div>
-              </div>
+                </TableCell>
+              </TableRow>
             ))}
-          </div>
-        </div>
+          </TableBody>
+        </Table>
       </CardContent>
     </Card>
   );

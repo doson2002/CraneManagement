@@ -242,18 +242,6 @@ export default function SuppliersPage() {
           </Button>
           <Select defaultValue="all">
             <SelectTrigger className="h-9 w-[180px]">
-              <SelectValue placeholder="Type" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="all">All Types</SelectItem>
-              <SelectItem value="equipment">Equipment Supplier</SelectItem>
-              <SelectItem value="parts">Parts Supplier</SelectItem>
-              <SelectItem value="service">Service Provider</SelectItem>
-              <SelectItem value="certification">Certification Provider</SelectItem>
-            </SelectContent>
-          </Select>
-          <Select defaultValue="all">
-            <SelectTrigger className="h-9 w-[180px]">
               <SelectValue placeholder="Status" />
             </SelectTrigger>
             <SelectContent>
@@ -266,7 +254,7 @@ export default function SuppliersPage() {
       </div>
 
       <Tabs defaultValue="all" className="w-full">
-        <TabsList className="w-full grid  grid-cols-5">
+        <TabsList className="w-full h-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5">
           <TabsTrigger value="all">All Suppliers</TabsTrigger>
           <TabsTrigger value="equipment">Equipment</TabsTrigger>
           <TabsTrigger value="parts">Parts</TabsTrigger>
