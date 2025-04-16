@@ -145,19 +145,6 @@ export default function UsersPage() {
           </Button>
           <Select defaultValue="all">
             <SelectTrigger className="h-9 w-[180px]">
-              <SelectValue placeholder="Role" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="all">All Roles</SelectItem>
-              <SelectItem value="operator">Operator</SelectItem>
-              <SelectItem value="manager">Manager</SelectItem>
-              <SelectItem value="maintenance">Maintenance</SelectItem>
-              <SelectItem value="admin">Admin</SelectItem>
-              <SelectItem value="supplier">Supplier</SelectItem>
-            </SelectContent>
-          </Select>
-          <Select defaultValue="all">
-            <SelectTrigger className="h-9 w-[180px]">
               <SelectValue placeholder="Status" />
             </SelectTrigger>
             <SelectContent>
@@ -170,7 +157,7 @@ export default function UsersPage() {
       </div>
 
       <Tabs defaultValue="all" className="w-full">
-        <TabsList className="grid w-full grid-cols-5">
+        <TabsList className="grid w-full h-full grid-cols-1 lg:grid-cols-5 sm:grid-cols-2">
           <TabsTrigger value="all">All Users</TabsTrigger>
           <TabsTrigger value="operators">Operators</TabsTrigger>
           <TabsTrigger value="managers">Managers</TabsTrigger>

@@ -5,6 +5,14 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import {
   DropdownMenu,
   DropdownMenuTrigger,
   DropdownMenuContent,
@@ -26,21 +34,23 @@ export interface UserTableProps {
 
 export default function UserTable({ users }: UserTableProps) {
   return (
-    <Card>
+    <Card className="w-full">
       <CardContent className="p-0">
-        <div className="rounded-md border">
-          <div className="grid grid-cols-12 gap-2 bg-muted p-4 font-medium">
-            <div className="col-span-3">Name</div>
-            <div className="col-span-3">Email</div>
-            <div className="col-span-2">Role</div>
-            <div className="col-span-1">Status</div>
-            <div className="col-span-2">Last Login</div>
-            <div className="col-span-1">Actions</div>
-          </div>
-          <div className="divide-y">
+        <Table className="w-full">
+          <TableHeader>
+            <TableRow>
+              <TableHead>Name</TableHead>
+              <TableHead>Email</TableHead>
+              <TableHead>Role</TableHead>
+              <TableHead>Status</TableHead>
+              <TableHead>Last Login</TableHead>
+              <TableHead>Actions</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
             {users.map((user) => (
-              <div key={user.id} className="grid grid-cols-12 gap-2 p-4">
-                <div className="col-span-3">
+              <TableRow key={user.id}>
+                <TableCell>
                   <div className="flex items-center gap-2">
                     <Avatar className="h-8 w-8">
                       <AvatarImage
@@ -51,18 +61,20 @@ export default function UserTable({ users }: UserTableProps) {
                     </Avatar>
                     <span className="font-medium">{user.name}</span>
                   </div>
-                </div>
-                <div className="col-span-3 flex items-center">{user.email}</div>
-                <div className="col-span-2 flex items-center">
+                </TableCell>
+                <TableCell>
+                  {user.email}
+                </TableCell>
+                <TableCell>
                   <Badge variant="secondary">{user.role}</Badge>
-                </div>
-                <div className="col-span-1 flex items-center">
+                </TableCell>
+                <TableCell >
                   <StatusBadge status={user.status} />
-                </div>
-                <div className="col-span-2 flex items-center text-sm text-muted-foreground">
+                </TableCell>
+                <TableCell>
                   {user.lastLogin}
-                </div>
-                <div className="col-span-1 flex items-center">
+                </TableCell>
+                <TableCell>
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                       <Button variant="ghost" size="icon" className="h-8 w-8">
@@ -91,11 +103,11 @@ export default function UserTable({ users }: UserTableProps) {
                       </DropdownMenuItem>
                     </DropdownMenuContent>
                   </DropdownMenu>
-                </div>
-              </div>
+                </TableCell>
+              </TableRow>
             ))}
-          </div>
-        </div>
+          </TableBody>
+        </Table>
       </CardContent>
     </Card>
   );
