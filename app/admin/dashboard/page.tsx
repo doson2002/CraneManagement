@@ -27,6 +27,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { useRouter } from "next/navigation"
 import { Input } from "@/components/ui/input"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
+import NotificationIcon from "@/app/admin/notifications/components/notification-icon"
 
 export default function AdminDashboard() {
   const router = useRouter()
@@ -382,7 +383,7 @@ export default function AdminDashboard() {
                   <div className="divide-y">
                     {notifications.map((notification) => (
                       <div key={notification.id} className="p-4 flex items-start gap-3">
-                        <div className="mt-0.5">{getNotificationIcon(notification.type)}</div>
+                        <div className="mt-0.5"><NotificationIcon type={notification.type}/></div>
                         <div className="flex-1">
                           <div className="flex justify-between items-start mb-1">
                             <p className="font-medium">{notification.message}</p>
@@ -402,139 +403,6 @@ export default function AdminDashboard() {
               </Card>
             </TabsContent>
 
-            <TabsContent value="accounts">
-              <div className="flex justify-between items-center mb-6">
-                <h2 className="text-2xl font-bold">Account Management</h2>
-                <div className="flex gap-2">
-                  <div className="relative">
-                    <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-                    <Input
-                      type="search"
-                      placeholder="Search users..."
-                      className="pl-8 w-[250px]"
-                      value={searchQuery}
-                      onChange={(e) => setSearchQuery(e.target.value)}
-                    />
-                  </div>
-                  <Button>
-                    <Plus className="h-4 w-4 mr-2" />
-                    Add User
-                  </Button>
-                </div>
-              </div>
-
-              <Card>
-                <CardContent className="p-0">
-                  <Table>
-                    <TableHeader>
-                      <TableRow>
-                        <TableHead>ID</TableHead>
-                        <TableHead>Name</TableHead>
-                        <TableHead>Role</TableHead>
-                        <TableHead>Status</TableHead>
-                        <TableHead>Last Login</TableHead>
-                        <TableHead className="text-right">Actions</TableHead>
-                      </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                      {filteredUsers.map((user) => (
-                        <TableRow key={user.id}>
-                          <TableCell className="font-medium">{user.id}</TableCell>
-                          <TableCell>
-                            <div className="flex items-center gap-2">
-                              <Avatar className="h-8 w-8">
-                                <AvatarFallback>
-                                  {user.name
-                                    .split(" ")
-                                    .map((n) => n[0])
-                                    .join("")}
-                                </AvatarFallback>
-                              </Avatar>
-                              {user.name}
-                            </div>
-                          </TableCell>
-                          <TableCell>{user.role}</TableCell>
-                          <TableCell>{getStatusBadge(user.status)}</TableCell>
-                          <TableCell>{user.lastLogin}</TableCell>
-                          <TableCell className="text-right">
-                            <div className="flex justify-end gap-2">
-                              <Button variant="ghost" size="sm">
-                                Edit
-                              </Button>
-                              <Button variant="ghost" size="sm" className="text-red-500 hover:text-red-700">
-                                Disable
-                              </Button>
-                            </div>
-                          </TableCell>
-                        </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
-                </CardContent>
-              </Card>
-            </TabsContent>
-
-            <TabsContent value="notifications">
-              <div className="flex justify-between items-center mb-6">
-                <h2 className="text-2xl font-bold">Notification Management</h2>
-                <div className="flex gap-2">
-                  <Button>
-                    <Plus className="h-4 w-4 mr-2" />
-                    Create Notification
-                  </Button>
-                </div>
-              </div>
-
-              <div className="grid gap-6 md:grid-cols-2">
-                
-
-                
-              </div>
-
-              <h2 className="text-xl font-bold mt-6 mb-4">Recent Notifications</h2>
-              <Card>
-                <CardContent className="p-0">
-                  <Table>
-                    <TableHeader>
-                      <TableRow>
-                        <TableHead>ID</TableHead>
-                        <TableHead>Type</TableHead>
-                        <TableHead>Message</TableHead>
-                        <TableHead>Date</TableHead>
-                        <TableHead>Status</TableHead>
-                        <TableHead className="text-right">Actions</TableHead>
-                      </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                      {notifications.map((notification) => (
-                        <TableRow key={notification.id}>
-                          <TableCell className="font-medium">{notification.id}</TableCell>
-                          <TableCell>
-                            <div className="flex items-center gap-2">
-                              {getNotificationIcon(notification.type)}
-                              <span className="capitalize">{notification.type}</span>
-                            </div>
-                          </TableCell>
-                          <TableCell>{notification.message}</TableCell>
-                          <TableCell>{notification.date}</TableCell>
-                          <TableCell>{getStatusBadge(notification.status)}</TableCell>
-                          <TableCell className="text-right">
-                            <div className="flex justify-end gap-2">
-                              <Button variant="ghost" size="sm">
-                                View
-                              </Button>
-                              <Button variant="ghost" size="sm" className="text-red-500 hover:text-red-700">
-                                Delete
-                              </Button>
-                            </div>
-                          </TableCell>
-                        </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
-                </CardContent>
-              </Card>
-            </TabsContent>
           </Tabs>
         </main>
       </div>
